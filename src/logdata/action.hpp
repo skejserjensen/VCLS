@@ -10,13 +10,13 @@ class Action
         char getActionType();
         std::string getFileName();
 
-        Action(char, string);
+        Action(char, std::string);
         ~Action();
         
     private:
         char actionType;
-        std::tring fileName;
-}
+        std::string fileName;
+};
 
 #endif /* end of include guard: ACTION_H */
 

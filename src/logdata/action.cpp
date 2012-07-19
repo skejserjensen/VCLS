@@ -1,7 +1,7 @@
 #include "action.hpp"
 
 /** Using namespaces **/
-using std::string
+using std::string;
 
 /** Public methods **/
 char Action::getActionType()
@@ -17,8 +17,8 @@ string Action::getFileName()
 /** Constructor **/
 Action::Action(char actionType, string fileName)
 {
-    this.actionType = actionType;
-    this.fileName = fileName;
+    this->actionType = actionType;
+    this->fileName = fileName;
 }
 
 /** Destructor **/
