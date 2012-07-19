@@ -1,4 +1,4 @@
-CXX= clang++
+CXX= g++
 CPPFLAGS= -g -Wall -std=c++11 -O0 -g -c -o 
 OBJECTS= main.o \
 		 action.o commit.o
