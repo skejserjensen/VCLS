@@ -15,11 +15,11 @@ class Commit
         std::string getTime();
         std::string getDate();
        
-        Action* getAction(unsigned int);
-        void addAction(Action);
-        int actionsSize();  
+        Action& getAction(unsigned int index);
+        void addAction(Action action);
+        int getActionsSize();  
 
-        Commit(std::string, std::string, std::string, std::string);
+        Commit(std::string revision, std::string author, std::string time, std::string date);
         ~Commit();
 
     private:

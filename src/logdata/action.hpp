@@ -10,7 +10,7 @@ class Action
         char getActionType();
         std::string getFileName();
 
-        Action(char, std::string);
+        Action(char actionType, std::string fileName);
         ~Action();
         
     private:

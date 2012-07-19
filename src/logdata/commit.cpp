@@ -2,6 +2,8 @@
 
 /** Using namespace **/
 using std::string;
+using std::cerr;
+using std::endl;
 
 /** Public methods **/
 string Commit::getRevision()
@@ -24,12 +26,17 @@ string Commit::getDate()
     return date;
 }
 
-Action* Commit::getAction(unsigned int index)
+Action& Commit::getAction(unsigned int index)
 {
-    if(index > actions.size())
-        return nullptr;
-
-    return &actions.at(index);
+    try
+    {
+        return actions.at(index);
+    }
+    catch(...)
+    {
+        cerr << "ERROR: access to actions was out of range" << endl;;
+        exit(-1);
+    }
 }
 
 void Commit::addAction(Action action)
@@ -37,7 +44,7 @@ void Commit::addAction(Action action)
     actions.push_back(action);
 }
 
-int Commit::actionsSize()
+int Commit::getActionsSize()
 {
     return actions.size();
 }
