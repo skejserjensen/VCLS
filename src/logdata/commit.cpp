@@ -34,7 +34,7 @@ Action& Commit::getAction(unsigned int index)
     }
     catch(...)
     {
-        cerr << "ERROR: access to actions was out of range" << endl;;
+        cerr << "ERROR: access to actions is out of bounds" << endl;;
         exit(-1);
     }
 }
