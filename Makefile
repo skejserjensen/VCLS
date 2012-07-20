@@ -1,7 +1,7 @@
 CXX= g++
 CPPFLAGS= -g -Wall -std=c++11 -O0 -g -c -o 
 OBJECTS= main.o \
-		 action.o commit.o user.o
+		 action.o commit.o user.o log.o
 
 #Vpath defining foldes with source files
 VPATH+= src 
