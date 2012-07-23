@@ -17,7 +17,7 @@ class Log
         int getCommitsSize();
         Commit& getCommit(unsigned int index);
 
-        Log(std::string);
+        Log(std::string filename);
         ~Log();
 
     private:
