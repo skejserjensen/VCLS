@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <sstream>
+#include <fstream>
 #include <boost/regex.hpp>
 
 

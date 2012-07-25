@@ -4,7 +4,7 @@
 
 int main(int argc, const char *argv[])
 {
-    LogFileHandler lfh("p4verbose");
+    LogFileHandler lfh("p3verbose");
 
     return 0;
 }
