@@ -43,6 +43,11 @@ LogFileHandler::~LogFileHandler()
 /** Private methods **/
 bool LogFileHandler::readLogFile()
 {
-    std::cout << "OMG What a log file" << std::endl;
+    //Using boost::regex as gcc don't have support for std::regex yet, while clang
+    //using libc++ is having problem compiling other parts of the code base.
+    //TODO: Rewrite the method to use std::regex when gcc supports the features needed
+    boost::regex svnVerbose("-{2}");
+    std::cout << boost::regex_match("--", svnVerbose) << std::endl;
+
     return true;
 }
