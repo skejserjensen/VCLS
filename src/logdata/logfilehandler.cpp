@@ -64,9 +64,16 @@ bool LogFileHandler::readLogFile()
     //Using boost::regex as gcc don't have support for std::regex yet, while clang
     //using libc++ is having problem compiling other parts of the code base.
     //TODO: Rewrite the method to use std::regex when gcc supports the features needed.
-    boost::regex svnVerbose("((-{72})(.))+");
-    std::cout << boost::regex_match(fileBuffer, svnVerbose) << std::endl;
-
+    boost::regex svnVerbose(
+            "("
+            "(-{72}\n)"
+            "(r\\d+)(\\s\\|\\s)(\\S+)(\\s\\|\\s)(\\d{4}-\\d{2}-\\d{2})(\\s)(\\d{2}:\\d{2}:\\d{2})(\\s)((\\+|\\-)\\d{4})(\\s)(\\(\\u\\l{2},\\s\\d{2}\\s\\u\\l{2}\\s\\d{4}\\))(\\s\\|\\s)(\\d\\sline)(\n)"
+            "(Changed paths:)(\n)"
+            "((\\s{3})(\\u)(\\s)(\\S+)(\\n))+"
+            "(\\n)"
+            "((\\S|\\s)+(\\n))+"
+            ")+"
+            );
 
     return true;
 }
