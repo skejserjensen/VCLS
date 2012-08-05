@@ -8,6 +8,8 @@ using std::ifstream;
 using std::shared_ptr;
 using std::make_shared;
 using std::stringstream;
+using boost::regex;
+using boost::sregex_token_iterator;
 
 /** Public methods **/
 string LogFileHandler::getLogFilePath() 
@@ -64,7 +66,21 @@ bool LogFileHandler::readLogFile()
     //Using boost::regex as gcc don't have support for std::regex yet, while clang
     //using libc++ is having problem compiling other parts of the code base.
     //TODO: Rewrite the method to use std::regex when gcc supports the features needed.
-    boost::regex svnVerbose(
+    boost::regex svnVerbose("r\\d+.+?Changed paths:.+?-{72}+");
+    if(regex_search(fileBuffer, svnVerbose))
+    {
+        sregex_token_iterator itr(fileBuffer.begin(), fileBuffer.end(), svnVerbose);
+        sregex_token_iterator end;
+        return true;
+    }
+
+    cerr << "ERROR: logfile was not recognized as a supported format" << endl;
+    exit(-1);
+}
+
+bool LogFileHandler::readSvnVerbose(sregex_token_iterator itr, sregex_token_iterator end)
+{
+    regex readSvnVerbose(
             "("
             "(-{72}\n)"
             "(r\\d+)(\\s\\|\\s)(\\S+)(\\s\\|\\s)(\\d{4}-\\d{2}-\\d{2})(\\s)(\\d{2}:\\d{2}:\\d{2})(\\s)((\\+|\\-)\\d{4})(\\s)(\\(\\u\\l{2},\\s\\d{2}\\s\\u\\l{2}\\s\\d{4}\\))(\\s\\|\\s)(\\d\\sline)(\n)"

@@ -26,8 +26,7 @@ class LogFileHandler
         std::shared_ptr<Log> logData;
 
         bool readLogFile();
-
-
+        bool readSvnVerbose(boost::sregex_token_iterator itr, boost::sregex_token_iterator end);
 };
 
 #endif /* end of include guard: LOGFILEHANDLER_H */
