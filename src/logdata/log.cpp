@@ -40,9 +40,9 @@ int Log::getCommitsSize()
     return commits.size();
 } 
 
-void Log::addCommit(string revision, string author, string time, string date)
+void Log::addCommit(string revision, string author, string time, string date, string comment)
 {
-    commits.push_back(Commit(revision, author, time, date));
+    commits.push_back(Commit(revision, author, time, date, comment));
 }
 
 Commit& Log::getCommit(unsigned int index)

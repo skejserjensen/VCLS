@@ -84,8 +84,9 @@ bool LogFileHandler::readSvnVerbose(string& file)
 {
     regex regularExpression(
             "r(\\d+)\\s\\|\\s(.+?)\\s\\|\\s(\\d{4}-\\d{2}-\\d{2})\\s(\\d{2}:\\d{2}:\\d{2}).+?"
-            "(\\u\\s.+?)^$"
-            "(.+?)"
+            "(\\u\\s.+?)"
+            "^$"
+            "(.+?)\\n"
             "-{72}\\n"
             );
 
@@ -98,10 +99,9 @@ bool LogFileHandler::readSvnVerbose(string& file)
     {
         //TODO: begin()/end() returns an iterator, but could not find a description of what type
         auto subMatchListBegin = reItStart->begin();
-        auto subMatchListEnd = reItStart->end();
-         
-        for(; subMatchListBegin != subMatchListEnd; ++subMatchListBegin)
-           std::cout << subMatchListBegin->str() << std::endl; 
+   
+        //1: Revision, 2: Author, 3: Date, 4: Time, 5: Actions, 6: Comment
+        logData->addCommit((subMatchListBegin+1)->str(), (subMatchListBegin+2)->str(), (subMatchListBegin+4)->str(), (subMatchListBegin+3)->str(), (subMatchListBegin+6)->str());
     }
 
     return true;

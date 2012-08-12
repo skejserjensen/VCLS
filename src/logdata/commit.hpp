@@ -14,12 +14,13 @@ class Commit
         std::string getAuthor();
         std::string getTime();
         std::string getDate();
+        std::string getComment();
        
         Action& getAction(unsigned int index);
         void addAction(Action action);
         int getActionsSize();  
 
-        Commit(std::string revision, std::string author, std::string time, std::string date);
+        Commit(std::string revision, std::string author, std::string time, std::string date, std::string comment);
         ~Commit();
 
     private:
@@ -27,6 +28,7 @@ class Commit
         std::string author;
         std::string time;
         std::string date;
+        std::string comment;
         std::vector<Action> actions;
 };
 

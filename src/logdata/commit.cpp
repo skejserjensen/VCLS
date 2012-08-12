@@ -26,6 +26,11 @@ string Commit::getDate()
     return date;
 }
 
+string Commit::getComment()
+{
+    return comment;
+}
+
 Action& Commit::getAction(unsigned int index)
 {
     try
@@ -50,12 +55,13 @@ int Commit::getActionsSize()
 }
 
 /** Constructor **/
-Commit::Commit(string revision, string author, string time, string date)
+Commit::Commit(string revision, string author, string time, string date, string comment)
 {
     this->revision = revision;
     this->author = author;
     this->time = time;
     this->date = date;
+    this->comment = comment;
 }
 
 /** Destructor **/
