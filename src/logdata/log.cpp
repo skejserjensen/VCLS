@@ -17,6 +17,11 @@ int Log::getUsersSize()
     return users.size();
 }
 
+void Log::addUser(string name)
+{
+    users.push_back(User(name));
+}
+
 User& Log::getUser(unsigned int index)
 {
     try
@@ -34,6 +39,11 @@ int Log::getCommitsSize()
 {
     return commits.size();
 } 
+
+void Log::addCommit(string revision, string author, string time, string date)
+{
+    commits.push_back(Commit(revision, author, time, date));
+}
 
 Commit& Log::getCommit(unsigned int index)
 {

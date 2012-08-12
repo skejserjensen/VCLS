@@ -13,8 +13,10 @@ class Log
     public:
         std::string getFileName();
         int getUsersSize();
+        void addUser(std::string name);
         User& getUser(unsigned int index);
         int getCommitsSize();
+        void addCommit(std::string revision, std::string author, std::string time, std::string date);
         Commit& getCommit(unsigned int index);
 
         Log(std::string filename);
