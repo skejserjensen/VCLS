@@ -9,6 +9,7 @@ using std::shared_ptr;
 using std::make_shared;
 using std::stringstream;
 using boost::regex;
+using boost::regex_match;
 using boost::sregex_token_iterator;
 
 /** Public methods **/
@@ -36,7 +37,7 @@ LogFileHandler::LogFileHandler(string logFilePath)
         this->logData = make_shared<Log>(logFilePath.substr(posOfLastSlash));
 
     //All file managment is done by the handler as it is vcs specefic, while the log
-    //can do data extraction on its own, as the data is saved in the format for all vcs.
+    //can do data extraction on its own, as the data is saved in the same format for all vcs.
     readLogFile();
 }
 
@@ -66,30 +67,21 @@ bool LogFileHandler::readLogFile()
     //Using boost::regex as gcc don't have support for std::regex yet, while clang
     //using libc++ is having problem compiling other parts of the code base.
     //TODO: Rewrite the method to use std::regex when gcc supports the features needed.
-    boost::regex svnVerbose("r\\d+.+?Changed paths:.+?-{72}+");
-    if(regex_search(fileBuffer, svnVerbose))
+
+    //Regex and method call for svn log file created with the --verbose flag flag
+    regex svnVerbose("-{72}\n(r\\d+.+?Changed\\spaths:\\n\\s{3}\\u.+?-{72}\\n)+");
+    if(regex_match(fileBuffer, svnVerbose))
     {
-        sregex_token_iterator itr(fileBuffer.begin(), fileBuffer.end(), svnVerbose);
-        sregex_token_iterator end;
-        return true;
+        if(readSvnVerbose(fileBuffer))
+                return true;
     }
 
     cerr << "ERROR: logfile was not recognized as a supported format" << endl;
     exit(-1);
 }
 
-bool LogFileHandler::readSvnVerbose(sregex_token_iterator itr, sregex_token_iterator end)
+bool LogFileHandler::readSvnVerbose(string& file)
 {
-    regex readSvnVerbose(
-            "("
-            "(-{72}\n)"
-            "(r\\d+)(\\s\\|\\s)(\\S+)(\\s\\|\\s)(\\d{4}-\\d{2}-\\d{2})(\\s)(\\d{2}:\\d{2}:\\d{2})(\\s)((\\+|\\-)\\d{4})(\\s)(\\(\\u\\l{2},\\s\\d{2}\\s\\u\\l{2}\\s\\d{4}\\))(\\s\\|\\s)(\\d\\sline)(\n)"
-            "(Changed paths:)(\n)"
-            "((\\s{3})(\\u)(\\s)(\\S+)(\\n))+"
-            "(\\n)"
-            "((\\S|\\s)+(\\n))+"
-            ")+"
-            );
 
     return true;
 }
