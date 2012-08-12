@@ -82,6 +82,19 @@ bool LogFileHandler::readLogFile()
 
 bool LogFileHandler::readSvnVerbose(string& file)
 {
+    regex regularExpression("-{72}\\n"
+            "r(\\d+)\\s\\|\\s(.+?)\\s\\|\\s(\\d{4}-\\d{2}-\\d{2})\\s(\\d{2}:\\d{2}:\\d{2}).+?"
+            "(\\u\\s.+?)^$"
+            "(.+?)"
+            "-{72}\\n"
+            );
+    sregex_token_iterator reItStart(file.begin(), file.end(), regularExpression, 6);
+    sregex_token_iterator reItEnd;
+
+    for(; reItStart != reItEnd; ++reItStart)
+    {
+        std::cout << reItStart->str() << std::endl << std::endl;
+    }
 
     return true;
 }
