@@ -16,9 +16,10 @@ int User::getCommitsSize()
     return commits.size();
 }
 
-void User::addCommit(Commit* commit)
+Commit& User::addCommit(Commit* commit)
 {
     commits.push_back(commit);
+    return (*commits.back());
 }
 
 Commit& User::getCommit(int index)

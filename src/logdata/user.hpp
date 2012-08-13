@@ -12,7 +12,7 @@ class User
     public:
         std::string getName();
         int getCommitsSize();
-        void addCommit(Commit* commit);
+        Commit& addCommit(Commit* commit);
         Commit& getCommit(int index);
 
         User(std::string name);

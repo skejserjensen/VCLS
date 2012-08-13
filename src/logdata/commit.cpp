@@ -44,9 +44,10 @@ Action& Commit::getAction(unsigned int index)
     }
 }
 
-void Commit::addAction(Action action)
+Action& Commit::addAction(char actionType, string filePath)
 {
-    actions.push_back(action);
+    actions.push_back(Action(actionType, filePath));
+    return actions.back();
 }
 
 int Commit::getActionsSize()

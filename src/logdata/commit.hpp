@@ -17,7 +17,7 @@ class Commit
         std::string getComment();
        
         Action& getAction(unsigned int index);
-        void addAction(Action action);
+        Action& addAction(char actionType, std::string filePath);
         int getActionsSize();  
 
         Commit(std::string revision, std::string author, std::string time, std::string date, std::string comment);

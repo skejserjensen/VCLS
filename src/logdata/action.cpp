@@ -9,16 +9,16 @@ char Action::getActionType()
     return actionType;
 }
 
-string Action::getFileName()
+string Action::getFilePath()
 {
-    return fileName;
+    return filePath;
 }
 
 /** Constructor **/
-Action::Action(char actionType, string fileName)
+Action::Action(char actionType, string filePath)
 {
     this->actionType = actionType;
-    this->fileName = fileName;
+    this->filePath = filePath;
 }
 
 /** Destructor **/

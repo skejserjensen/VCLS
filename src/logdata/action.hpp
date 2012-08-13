@@ -8,14 +8,14 @@ class Action
 {
     public:
         char getActionType();
-        std::string getFileName();
+        std::string getFilePath();
 
-        Action(char actionType, std::string fileName);
+        Action(char actionType, std::string filePath);
         ~Action();
         
     private:
         char actionType;
-        std::string fileName;
+        std::string filePath;
 };
 
 #endif /* end of include guard: ACTION_H */

@@ -10,7 +10,7 @@ using std::make_shared;
 using std::stringstream;
 using boost::regex;
 using boost::regex_match;
-using boost::sregex_token_iterator;
+using boost::sregex_iterator;
 
 /** Public methods **/
 string LogFileHandler::getLogFilePath() 
@@ -82,7 +82,8 @@ bool LogFileHandler::readLogFile()
 
 bool LogFileHandler::readSvnVerbose(string& file)
 {
-    regex regularExpression(
+    //Regex and iterators to extract Revision, Author, Date, Time, Actions and Comments from the various commits
+    regex commitsRegex(
             "r(\\d+)\\s\\|\\s(.+?)\\s\\|\\s(\\d{4}-\\d{2}-\\d{2})\\s(\\d{2}:\\d{2}:\\d{2}).+?"
             "(\\u\\s.+?)"
             "^$"
@@ -90,18 +91,31 @@ bool LogFileHandler::readSvnVerbose(string& file)
             "-{72}\\n"
             );
 
-    boost::sregex_iterator reItStart(file.begin(), file.end(), regularExpression);
-    boost::sregex_iterator reItEnd;
+    sregex_iterator cmItStart(file.begin(), file.end(), commitsRegex);
+    sregex_iterator cmItEnd;
 
-    //The outer loop iterates through each commit, while the inner iterates trough each 
-    //sub group matched in the commit
-    for(; reItStart != reItEnd; ++reItStart)
+
+    //Regex to extract Type and Filepath from the various actions contained in the commits
+    regex actionsRegex(".*?(\\u)\\s(.+?)\\n");
+
+    for(; cmItStart != cmItEnd; ++cmItStart)
     {
-        //TODO: begin()/end() returns an iterator, but could not find a description of what type
-        auto subMatchListBegin = reItStart->begin();
+        auto subMatchCommit = cmItStart->begin();
    
         //1: Revision, 2: Author, 3: Date, 4: Time, 5: Actions, 6: Comment
-        logData->addCommit((subMatchListBegin+1)->str(), (subMatchListBegin+2)->str(), (subMatchListBegin+4)->str(), (subMatchListBegin+3)->str(), (subMatchListBegin+6)->str());
+        Commit& activeCommit = logData->addCommit((subMatchCommit+1)->str(), (subMatchCommit+2)->str(), (subMatchCommit+4)->str(), (subMatchCommit+3)->str(), (subMatchCommit+6)->str());
+
+        string actions = (subMatchCommit+5)->str();
+        sregex_iterator acItStart(actions.begin(), actions.end(), actionsRegex);
+        sregex_iterator acItEnd;
+
+        //1: Action Type, 2: Filepath
+        for(; acItStart != acItEnd; ++acItStart)
+        {
+            //The first string does allways only contain one char, which we save as such by extracting it
+            auto subMatchAction = acItStart->begin();
+            activeCommit.addAction((subMatchAction+1)->str().at(0), (subMatchAction+2)->str());
+        }
     }
 
     return true;
