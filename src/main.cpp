@@ -4,7 +4,8 @@
 
 int main(int argc, const char *argv[])
 {
-    LogFileHandler lfh("p3verbose");
+    //The LogFileHandler takes the path to a supported log file as argument for its constructor
+    LogFileHandler lfh("");
             
     return 0;
 }

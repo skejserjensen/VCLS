@@ -39,6 +39,9 @@ LogFileHandler::LogFileHandler(string logFilePath)
     //All file managment is done by the handler as it is vcs specefic, while the log
     //can do data extraction on its own, as the data is saved in the same format for all vcs.
     readLogFile();
+
+    //Extracts the data contained in the various commits, and assign it to the users.
+    logData->extractDataFromCommits();
 }
 
 /** Destructor **/
@@ -72,15 +75,15 @@ bool LogFileHandler::readLogFile()
     regex svnVerbose("-{72}\n(r\\d+.+?Changed\\spaths:\\n\\s{3}\\u.+?-{72}\\n)+");
     if(regex_match(fileBuffer, svnVerbose))
     {
-        if(readSvnVerbose(fileBuffer))
-                return true;
+        readSvnVerbose(fileBuffer);
+        return true;
     }
 
     cerr << "ERROR: logfile was not recognized as a supported format" << endl;
     exit(-1);
 }
 
-bool LogFileHandler::readSvnVerbose(string& file)
+void LogFileHandler::readSvnVerbose(string& file)
 {
     //Regex and iterators to extract Revision, Author, Date, Time, Actions and Comments from the various commits
     regex commitsRegex(
@@ -117,6 +120,4 @@ bool LogFileHandler::readSvnVerbose(string& file)
             activeCommit.addAction((subMatchAction+1)->str().at(0), (subMatchAction+2)->str());
         }
     }
-
-    return true;
 }

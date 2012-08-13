@@ -8,7 +8,6 @@
 #include <fstream>
 #include <boost/regex.hpp>
 
-
 #include "log.hpp"
 
 class LogFileHandler 
@@ -26,7 +25,7 @@ class LogFileHandler
         std::shared_ptr<Log> logData;
 
         bool readLogFile();
-        bool readSvnVerbose(std::string& file);
+        void readSvnVerbose(std::string& file);
 };
 
 #endif /* end of include guard: LOGFILEHANDLER_H */
