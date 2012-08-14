@@ -26,6 +26,7 @@ class LogFileHandler
 
         bool readLogFile();
         void readSvnVerbose(std::string& file);
+        void extractDataFromCommits();
 };
 
 #endif /* end of include guard: LOGFILEHANDLER_H */

@@ -18,7 +18,8 @@ class Log
         int getCommitsSize();
         Commit& addCommit(std::string revision, std::string author, std::string time, std::string date, std::string comment);
         Commit& getCommit(unsigned int index);
-        void extractDataFromCommits();
+
+        void assignCommitsToUsers();
 
         Log(std::string filename);
         ~Log();
@@ -27,9 +28,6 @@ class Log
         std::string filename;
         std::vector <User> users;
         std::vector <Commit> commits;
-
-        void assignCommitsToUsers();
-
 };
 
 #endif /* end of include guard: LOG_H */

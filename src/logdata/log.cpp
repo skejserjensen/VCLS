@@ -60,25 +60,6 @@ Commit& Log::getCommit(unsigned int index)
     }
 }
 
-void Log::extractDataFromCommits()
-{
-    //Encapsulates data extraction incase more is needed later, 
-    //our a better way to initialiase data extraction after commits is added is found.
-    assignCommitsToUsers();
-}
-
-/** Constructor **/
-Log::Log(string filename)
-{
-    this->filename = filename;
-}
-
-/** Destructor **/
-Log::~Log()
-{
-}
-
-/** Private methods **/
 void Log::assignCommitsToUsers()
 {
     bool userExist;
@@ -111,4 +92,15 @@ void Log::assignCommitsToUsers()
             user.addCommit(&commit);
         }
     }
+}
+
+/** Constructor **/
+Log::Log(string filename)
+{
+    this->filename = filename;
+}
+
+/** Destructor **/
+Log::~Log()
+{
 }
