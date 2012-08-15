@@ -1,11 +1,15 @@
 #include <iostream>
+#include <QApplication>
 
-#include "logdata/logfilehandler.hpp"
+#include "qtgui/mainwindow.hpp"
 
-int main(int argc, const char *argv[])
+int main(int argc, char *argv[])
 {
-    //The LogFileHandler takes the path to a supported log file as argument for its constructor
-    LogFileHandler lfh("");
-            
-    return 0;
+    QApplication app(argc, argv);
+
+    MainWindow mainWindow;
+    mainWindow.show();
+
+    //Initiates the main loop of the gui program    
+    return app.exec();
 }
