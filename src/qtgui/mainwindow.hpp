@@ -2,7 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QtGui>
-#include <iostream>
+
+#include "filedialog.hpp"
 
 class MainWindow : public QWidget
 {
@@ -13,10 +14,15 @@ class MainWindow : public QWidget
         ~MainWindow();
 
     private:
-        QGridLayout *windowLayout;
         QPushButton *openFile;
         QLineEdit *openedFile;
-        
+       
+        FileDialog *fileDialog; 
+
+        QGridLayout *windowLayout;
+
+    private slots:
+        void selectAndOpenFile();
 };
 
 #endif /* end of include guard: MAINWINDOW_H */

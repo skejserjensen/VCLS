@@ -1,11 +1,12 @@
 CXX= g++
-CPPFLAGS= -g -Wall -std=c++11 -O0 -g -c -o
-LDFLAGS= -lboost_regex `pkg-config --libs --cflags QtGui`
+CPPFLAGS= -Wall -std=c++11 -O0 -g -c -o
+INCPATH = `pkg-config --cflags QtGui`
+LIBS= -lboost_regex -lQtGui -lQtCore 
 OBJECTS= main.o \
 		 action.o commit.o user.o log.o logfilehandler.o \
-		 mainwindow.o
+		 mainwindow.o filedialog.o
 
-MOCS= mainwindow.moc.cpp
+MOCS= mainwindow.moc.cpp filedialog.moc.cpp
 
 #Vpath defining foldes with source files
 VPATH+= src
@@ -14,21 +15,21 @@ VPATH+= src
 all: vcls
 
 vcls: $(OBJECTS) $(MOCS)
-	$(CXX) $(OBJECTS) $(MOCS) $(LDFLAGS) -std=c++11 -g -Wall -o $@
+	$(CXX) $(OBJECTS) $(MOCS) $(INCPATH) $(LIBS) -std=c++11 -Wall -o $@
 
 #Rules for individual parts of the program
 %.o: logdata/%.cpp logdata/%.hpp
-	$(CXX) $< $(LDFLAGS) $(CPPFLAGS) $@
+	$(CXX) $< $(CPPFLAGS) $@
 
 %.o: qtgui/%.cpp qtgui/%.hpp
-	$(CXX) $< $(LDFLAGS) $(CPPFLAGS) $@
+	$(CXX) $< $(INCPATH) $(CPPFLAGS) $@
 
 %.o: %.cpp %.hpp
 	$(CXX) $< $(CPPFLAGS) $@
 
 #Rule to handle the files that does not have a header
 %.o: %.cpp
-	$(CXX) $? $(LDFLAGS) $(CPPFLAGS) $@
+	$(CXX) $? $(INCPATH) $(CPPFLAGS) $@
 
 #Rule for Qt's preprosser, which must run on QTOBJECT derived files
 %.moc.cpp: qtgui/%.hpp
