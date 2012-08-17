@@ -9,10 +9,13 @@ class MainWindow : public QWidget
     Q_OBJECT
 
     public:
-        MainWindow();
+        MainWindow(QWidget *parent = nullptr);
         ~MainWindow();
 
     private:
+        QGridLayout *windowLayout;
+        QPushButton *openFile;
+        QLineEdit *openedFile;
         
 };
 

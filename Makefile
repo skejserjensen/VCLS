@@ -14,7 +14,7 @@ VPATH+= src
 all: vcls
 
 vcls: $(OBJECTS) $(MOCS)
-	$(CXX) $(OBJECTS) $(MOCS) $(LDFLAGS) -g -Wall -o $@
+	$(CXX) $(OBJECTS) $(MOCS) $(LDFLAGS) -std=c++11 -g -Wall -o $@
 
 #Rules for individual parts of the program
 %.o: logdata/%.cpp logdata/%.hpp
