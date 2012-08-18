@@ -4,6 +4,8 @@
 #include <QtGui>
 
 #include "filedialog.hpp"
+#include "listview.hpp"
+#include "textview.hpp"
 
 class MainWindow : public QWidget
 {
@@ -14,12 +16,18 @@ class MainWindow : public QWidget
         ~MainWindow();
 
     private:
+        QGridLayout *windowLayout;
+
         QPushButton *openFile;
         QLineEdit *openedFile;
-       
         FileDialog *fileDialog; 
 
-        QGridLayout *windowLayout;
+        ListView *listView;
+
+        TextView *topUserTextView;
+        TextView *middleUserTextView;
+        TextView *bottumUserTextView;
+
 
     private slots:
         void selectAndOpenFile();

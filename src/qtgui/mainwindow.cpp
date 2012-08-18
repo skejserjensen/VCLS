@@ -8,13 +8,20 @@ using std::string;
 /** Constructor **/
 MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
 {
-    //Instansitaion of gui elements    
+    //Creates the layout used by the mainwindow
+    windowLayout = new QGridLayout();
+    this->setLayout(windowLayout);
+    
+    //Instansitaion of gui elements
     openFile = new QPushButton("Open File", this);
     openedFile = new QLineEdit(this);
-
     fileDialog = new FileDialog(this);
 
-    windowLayout = new QGridLayout();
+    listView = new ListView(this);  
+
+    topUserTextView = new TextView(this);
+    middleUserTextView = new TextView(this);
+    bottumUserTextView = new TextView(this);
 
     //Set the differant properties of defualt widgets
     openedFile->setReadOnly(true);
@@ -23,9 +30,14 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
     QObject::connect(openFile, SIGNAL(clicked()), SLOT(selectAndOpenFile()));
 
     //Attah the elements to the layout and attach the layout to the mainwindow
-    windowLayout->addWidget(openedFile, 0, 0);
+    windowLayout->addWidget(openedFile, 0, 0, 1, 1);
     windowLayout->addWidget(openFile, 0, 1);
-    this->setLayout(windowLayout);
+
+    windowLayout->addWidget(listView, 1, 0, -1, 1);
+
+    windowLayout->addWidget(topUserTextView, 1, 1);
+    windowLayout->addWidget(middleUserTextView, 2, 1);
+    windowLayout->addWidget(bottumUserTextView, 3, 1);
 }
 
 /** Destructor **/

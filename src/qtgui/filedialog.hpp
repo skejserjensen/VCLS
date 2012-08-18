@@ -12,7 +12,6 @@ class FileDialog : public QFileDialog
         ~FileDialog();
 
     private:
-        /* data */
 };
 
 
