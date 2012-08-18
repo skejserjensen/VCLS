@@ -8,6 +8,9 @@ using std::string;
 /** Constructor **/
 MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
 {
+    //The logfilehandler is initialised to null, to ensure we only delete it once
+    logFileHandler = nullptr;
+
     //Creates the layout used by the mainwindow
     windowLayout = new QGridLayout();
     this->setLayout(windowLayout);
@@ -28,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
     
     //Attach signals to slots
     QObject::connect(openFile, SIGNAL(clicked()), SLOT(selectAndOpenFile()));
+    QObject::connect(listView, SIGNAL(itemSelectionChanged()), SLOT(setActiveText()));
 
     //Attah the elements to the layout and attach the layout to the mainwindow
     windowLayout->addWidget(openedFile, 0, 0, 1, 1);
@@ -43,12 +47,35 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
 /** Destructor **/
 MainWindow::~MainWindow()
 {
+    if(logFileHandler != nullptr)
+        delete logFileHandler;
 }
 
 /** Private slots **/
 void MainWindow::selectAndOpenFile()
 {
-    QString fileName;
-    fileName = fileDialog->getOpenFileName();
-    openedFile->setText(fileName);
+    QString filePath;
+    filePath = fileDialog->getOpenFileName();
+
+    if(logFileHandler != nullptr)
+        delete logFileHandler;
+
+    logFileHandler = new LogFileHandler(filePath.toStdString());
+
+    //Fills the listwidget and sets the filepath to the textbox
+    listView->fillList(logFileHandler->getLogData());
+    openedFile->setText(filePath);
+
+    //Formats and saves the text the three text boxes are going to display
+    topUserTextView->formatTextGeneral(logFileHandler->getLogData());
+}
+
+void MainWindow::setActiveText()
+{
+    unsigned int rowSelected = listView->currentRow();
+
+    //The displayed text is formatted doing the construction process and only needs to be set
+    topUserTextView->setActiveText(rowSelected);
+    //middleUserTextView->setActiveText(rowSelected);
+    //bottumUserTextView->setActiveText(rowSelected);
 }

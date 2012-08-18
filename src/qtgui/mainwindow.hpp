@@ -6,6 +6,7 @@
 #include "filedialog.hpp"
 #include "listview.hpp"
 #include "textview.hpp"
+#include "../logdata/logfilehandler.hpp"
 
 class MainWindow : public QWidget
 {
@@ -16,6 +17,10 @@ class MainWindow : public QWidget
         ~MainWindow();
 
     private:
+        //Raw pointer is used for the internal implementation as it cant be acessed
+        LogFileHandler *logFileHandler;
+
+        //The qt gui components
         QGridLayout *windowLayout;
 
         QPushButton *openFile;
@@ -31,6 +36,7 @@ class MainWindow : public QWidget
 
     private slots:
         void selectAndOpenFile();
+        void setActiveText();
 };
 
 #endif /* end of include guard: MAINWINDOW_H */
