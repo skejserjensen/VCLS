@@ -19,6 +19,11 @@ int User::getCommitsSize()
 Commit& User::addCommit(Commit* commit)
 {
     commits.push_back(commit);
+    commitsCounter++;
+    
+    if(commit->commentMissing())
+        missingCommentsCounter++;
+
     return (*commits.back());
 }
 
@@ -36,9 +41,22 @@ Commit& User::getCommit(int index)
     }
 }
 
+unsigned int User::getCommitsCounter()
+{
+    return commitsCounter;
+}
+
+unsigned int User::getMissingCommentsCounter()
+{
+    return missingCommentsCounter;
+}
+
 /** Constructor **/
 User::User(string name)
 {
+    commitsCounter = 0;
+    missingCommentsCounter = 0;
+
     this->name = name;
 }
 

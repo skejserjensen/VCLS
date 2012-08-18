@@ -55,6 +55,18 @@ int Commit::getActionsSize()
     return actions.size();
 }
 
+bool Commit::commentMissing()
+{
+    //A missing comment has length of one, as it allways contains a newline
+    //TODO: Trim white space from strings added in the regexses
+    if(comment.length() == 1)
+    {
+        return true;
+    }
+
+    return false;
+}
+
 /** Constructor **/
 Commit::Commit(string revision, string author, string time, string date, string comment)
 {

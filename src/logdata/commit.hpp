@@ -20,6 +20,8 @@ class Commit
         Action& addAction(char actionType, std::string filePath);
         int getActionsSize();  
 
+        bool commentMissing();
+
         Commit(std::string revision, std::string author, std::string time, std::string date, std::string comment);
         ~Commit();
 
