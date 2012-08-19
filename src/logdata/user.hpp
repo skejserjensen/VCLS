@@ -11,20 +11,22 @@ class User
 {
     public:
         std::string getName();
-        int getCommitsSize();
+        unsigned int getCommitsSize();
         Commit& addCommit(Commit* commit);
         Commit& getCommit(int index);
 
-        unsigned int getCommitsCounter();
-        unsigned int getMissingCommentsCounter();
+        unsigned int getMissingComments();
+        unsigned int getAverageCommentLength();
+
+        void extractDataFromCommits();
 
         User(std::string name);
         ~User(); 
 
     private:
         std::string name;
-        unsigned int commitsCounter;
-        unsigned int missingCommentsCounter;
+        unsigned int missingComments;
+        unsigned int averageCommentLength;
 
         //Raw pointers are used as this is only a list of referances 
         //to the actual commits stored in the log class.

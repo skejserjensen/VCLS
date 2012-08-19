@@ -17,7 +17,7 @@ void TextView::setActiveText(unsigned int index)
         setText(formattedText.at(index));
 }
 
-void TextView::formatTextGeneral(shared_ptr<Log> log)
+void TextView::formatTextUsers(shared_ptr<Log> log)
 {
     unsigned int counter = 0;
     unsigned int usersSize = log->getUsersSize();
@@ -31,7 +31,7 @@ void TextView::formatTextGeneral(shared_ptr<Log> log)
 
         //The string is formated using a stream so the string isen't truncated
         stringstream formattedStream;
-        formattedStream << "Commits: " << user.getCommitsCounter() << std::endl << "Missing Comments: " << user.getMissingCommentsCounter() << std::endl;
+        formattedStream << "Commits: " << user.getCommitsSize() << std::endl << "Missing Comments: " << user.getMissingComments() << std::endl << "Average Comment Length: " << user.getAverageCommentLength() << std::endl;
 
         //The string needs to converted to a qstring before it can set, so it is saved as such 
         QString formattedQString = QString::fromStdString(formattedStream.str());

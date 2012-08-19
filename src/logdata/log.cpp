@@ -12,7 +12,7 @@ string Log::getFileName()
     return filename;
 }
 
-int Log::getUsersSize()
+unsigned int Log::getUsersSize()
 {
     return users.size();
 }
@@ -36,10 +36,15 @@ User& Log::getUser(unsigned int index)
     }
 }
 
-int Log::getCommitsSize()
+unsigned int Log::getCommitsSize()
 {
     return commits.size();
-} 
+}
+
+unsigned int Log::getAverageCommentLength()
+{
+    return averageCommentLength;
+}
 
 Commit& Log::addCommit(string revision, string author, string time, string date, string comment)
 {
@@ -60,38 +65,22 @@ Commit& Log::getCommit(unsigned int index)
     }
 }
 
-void Log::assignCommitsToUsers()
+void Log::extractDataFromCommits()
 {
-    bool userExist;
+    unsigned int commentLength = 0;
 
+    //Extraction of general data from the log file 
     for(Commit& commit : commits)
     {
-        userExist = false;
-        string userName = commit.getAuthor();
-
-        //A foreach loop is not used for the users as the index is needed outside the scope of the loop
-        int usersCounter;
-        int usersSize = users.size(); 
-
-        for(usersCounter = 0; usersCounter < usersSize; usersCounter++)
-        {
-            User& user = users.at(usersCounter);
-
-            if(userName == user.getName())
-            {
-                user.addCommit(&commit);
-                userExist = true;
-                break;
-           }
-        }
-
-        //If the user does not exist then a new one is created and the commited is stored
-        if(!userExist)
-        {
-            User& user = addUser(userName);
-            user.addCommit(&commit);
-        }
+        assignCommitToUser(commit);
+        commentLength += commit.getCommentLength();
     }
+
+    averageCommentLength = (commentLength / commits.size());
+
+    //Extraction of user specefic data from the log file
+    for(User& user : users)
+        user.extractDataFromCommits();
 }
 
 /** Constructor **/
@@ -103,4 +92,29 @@ Log::Log(string filename)
 /** Destructor **/
 Log::~Log()
 {
+}
+
+/** Private methods **/
+void Log::assignCommitToUser(Commit& commit)
+{
+    bool userExist;
+    userExist = false;
+    string userName = commit.getAuthor();
+
+    for(User& user : users)
+    {
+        if(userName == user.getName())
+        {
+            user.addCommit(&commit);
+            userExist = true;
+            break;
+        }
+    }
+
+    //If the user does not exist then a new one is created and the commited is stored
+    if(!userExist)
+    {
+        User& user = addUser(userName);
+        user.addCommit(&commit);
+    }
 }

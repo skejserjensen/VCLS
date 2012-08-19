@@ -40,9 +40,8 @@ LogFileHandler::LogFileHandler(string logFilePath)
     //can do data extraction on its own, as the data is saved in the same format for all vcs.
     readLogFile();
 
-    //The various log data objects extracts the information¸ this is just a small function to 
-    //ensure that all data extract methods are run after the log file have been read.
-    extractDataFromCommits();
+    //Handler starts data extraction, as the log class have no information about when data is ready
+    logData->extractDataFromCommits();
 }
 
 /** Destructor **/
@@ -121,9 +120,4 @@ void LogFileHandler::readSvnVerbose(string& file)
             activeCommit.addAction((subMatchAction+1)->str().at(0), (subMatchAction+2)->str());
         }
     }
-}
-
-void LogFileHandler::extractDataFromCommits()
-{
-    logData->assignCommitsToUsers();
 }

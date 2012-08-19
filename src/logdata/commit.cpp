@@ -31,6 +31,11 @@ string Commit::getComment()
     return comment;
 }
 
+unsigned int Commit::getCommentLength()
+{
+    return comment.length();
+}
+
 Action& Commit::getAction(unsigned int index)
 {
     try

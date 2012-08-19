@@ -11,7 +11,7 @@ string User::getName()
     return name;
 }
 
-int User::getCommitsSize()
+unsigned int User::getCommitsSize()
 {
     return commits.size();
 }
@@ -19,11 +19,6 @@ int User::getCommitsSize()
 Commit& User::addCommit(Commit* commit)
 {
     commits.push_back(commit);
-    commitsCounter++;
-    
-    if(commit->commentMissing())
-        missingCommentsCounter++;
-
     return (*commits.back());
 }
 
@@ -41,21 +36,36 @@ Commit& User::getCommit(int index)
     }
 }
 
-unsigned int User::getCommitsCounter()
+unsigned int User::getMissingComments()
 {
-    return commitsCounter;
+    return missingComments;
 }
 
-unsigned int User::getMissingCommentsCounter()
+unsigned int User::getAverageCommentLength()
 {
-    return missingCommentsCounter;
+    return averageCommentLength;
+}
+
+void User::extractDataFromCommits()
+{
+    unsigned int commentLength = 0;        
+
+    for(Commit* commit : commits)
+    {
+        if(commit->commentMissing())
+            missingComments++;
+
+        commentLength += commit->getCommentLength();
+    }
+
+    averageCommentLength = (commentLength / commits.size());
 }
 
 /** Constructor **/
 User::User(string name)
 {
-    commitsCounter = 0;
-    missingCommentsCounter = 0;
+    missingComments = 0;
+    averageCommentLength = 0;
 
     this->name = name;
 }

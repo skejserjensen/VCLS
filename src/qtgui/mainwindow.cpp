@@ -67,7 +67,7 @@ void MainWindow::selectAndOpenFile()
     openedFile->setText(filePath);
 
     //Formats and saves the text the three text boxes are going to display
-    topUserTextView->formatTextGeneral(logFileHandler->getLogData());
+    topUserTextView->formatTextUsers(logFileHandler->getLogData());
 }
 
 void MainWindow::setActiveText()
