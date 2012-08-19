@@ -1,6 +1,7 @@
 #include "textview.hpp"
 
 /** Using namespaces **/
+using std::endl;
 using std::vector;
 using std::shared_ptr;
 using std::stringstream;
@@ -31,7 +32,7 @@ void TextView::formatTextUsers(shared_ptr<Log> log)
 
         //The string is formated using a stream so the string isen't truncated
         stringstream formattedStream;
-        formattedStream << "Commits: " << user.getCommitsSize() << std::endl << "Missing Comments: " << user.getMissingComments() << std::endl << "Average Comment Length: " << user.getAverageCommentLength() << std::endl;
+        formattedStream << "Commits: " << user.getCommitsSize() << endl << "Missing Comments: " << user.getMissingComments() << endl << "Average Comment Length: " << user.getAverageCommentLength() << endl << "Average Number Of Changes: " << user.getAverageChangesInCommits() << endl;
 
         //The string needs to converted to a qstring before it can set, so it is saved as such 
         QString formattedQString = QString::fromStdString(formattedStream.str());

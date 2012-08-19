@@ -46,9 +46,15 @@ unsigned int User::getAverageCommentLength()
     return averageCommentLength;
 }
 
+unsigned int User::getAverageChangesInCommits()
+{
+    return averageChangesInCommits; 
+}
+
 void User::extractDataFromCommits()
 {
     unsigned int commentLength = 0;        
+    unsigned int changesInCommits = 0;
 
     for(Commit* commit : commits)
     {
@@ -56,9 +62,12 @@ void User::extractDataFromCommits()
             missingComments++;
 
         commentLength += commit->getCommentLength();
+        changesInCommits += commit->getActionsSize();
     }
 
-    averageCommentLength = (commentLength / commits.size());
+    unsigned int commitsSize = commits.size();
+    averageCommentLength = (commentLength / commitsSize);
+    averageChangesInCommits = (changesInCommits / commitsSize);
 }
 
 /** Constructor **/

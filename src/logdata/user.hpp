@@ -17,6 +17,7 @@ class User
 
         unsigned int getMissingComments();
         unsigned int getAverageCommentLength();
+        unsigned int getAverageChangesInCommits();
 
         void extractDataFromCommits();
 
@@ -27,6 +28,7 @@ class User
         std::string name;
         unsigned int missingComments;
         unsigned int averageCommentLength;
+        unsigned int averageChangesInCommits;
 
         //Raw pointers are used as this is only a list of referances 
         //to the actual commits stored in the log class.
