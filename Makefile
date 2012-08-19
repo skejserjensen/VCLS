@@ -3,7 +3,7 @@ CPPFLAGS= -Wall -std=c++11 -O0 -g -c -o
 INCPATH = `pkg-config --cflags QtGui`
 LIBS= -lboost_regex -lQtGui -lQtCore 
 OBJECTS= main.o \
-		 action.o commit.o worktimehandler.o user.o log.o logfilehandler.o \
+		 action.o commit.o worktimehandler.o commitedfileshandler.o user.o log.o logfilehandler.o \
 		 mainwindow.o filedialog.o textview.o listview.o
 
 MOCS= mainwindow.moc.cpp filedialog.moc.cpp textview.moc.cpp listview.moc.cpp

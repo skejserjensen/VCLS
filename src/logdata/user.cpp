@@ -31,7 +31,7 @@ Commit& User::getCommit(int index)
     }
     catch(...)
     {
-        cerr << "ERROR: acces to commits is out of bounds" << endl;
+        cerr << "ERROR: access to commits is out of bounds" << endl;
         exit(-1);
     }
 }
@@ -56,6 +56,11 @@ WorkTimeHandler& User::getWorkTimeHandler()
     return workTimeHandler;
 }
 
+CommittedFilesHandler& User::getCommitedFilesHandler()
+{
+    return commitedFilesHandler; 
+}
+
 void User::extractDataFromCommits()
 {
     unsigned int commentLength = 0;        
@@ -70,7 +75,11 @@ void User::extractDataFromCommits()
         changesInCommits += commit->getActionsSize();
 
         workTimeHandler.addCommit(commit);
+        commitedFilesHandler.addCommit(commit);
     }
+
+    //The handler needs to know when all commits have been aded and data can be extracted
+    commitedFilesHandler.extractDataFromCommits();
 
     unsigned int commitsSize = commits.size();
     averageCommentLength = (commentLength / commitsSize);

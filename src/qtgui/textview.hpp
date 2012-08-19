@@ -16,6 +16,7 @@ class TextView : public QTextEdit
         void setActiveText(unsigned int index); 
         void formatTextUsers(std::shared_ptr<Log> log);
         void formatTextWorkTime(std::shared_ptr<Log> log);
+        void formatTextCommitedFiles(std::shared_ptr<Log> log);
 
         TextView(QWidget *parent);
         ~TextView();

@@ -31,7 +31,7 @@ User& Log::getUser(unsigned int index)
     }
     catch(...)
     {
-        cerr << "ERROR: acces to users was out of bounds" << endl;
+        cerr << "ERROR: access to users was out of bounds" << endl;
         exit(-1);
     }
 }
@@ -60,7 +60,7 @@ Commit& Log::getCommit(unsigned int index)
     }
     catch(...)
     {
-        cerr << "ERROR: acces to commits was out of bounds" << endl;
+        cerr << "ERROR: access to commits was out of bounds" << endl;
         exit(-1);
     }
 }
@@ -78,7 +78,7 @@ void Log::extractDataFromCommits()
 
     averageCommentLength = (commentLength / commits.size());
 
-    //Extraction of user specefic data from the log file
+    //Extraction of user specific data from the log file
     for(User& user : users)
         user.extractDataFromCommits();
 }

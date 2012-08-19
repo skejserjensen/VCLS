@@ -9,7 +9,7 @@ char Action::getActionType()
     return actionType;
 }
 
-string Action::getFilePath()
+string& Action::getFilePath()
 {
     return filePath;
 }

@@ -8,7 +8,7 @@ class Action
 {
     public:
         char getActionType();
-        std::string getFilePath();
+        std::string& getFilePath();
 
         Action(char actionType, std::string filePath);
         ~Action();

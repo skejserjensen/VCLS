@@ -7,6 +7,7 @@
 
 #include "commit.hpp"
 #include "worktimehandler.hpp"
+#include "commitedfileshandler.hpp"
 
 class User 
 {
@@ -21,6 +22,7 @@ class User
         unsigned int getAverageChangesInCommits();
 
         WorkTimeHandler& getWorkTimeHandler();
+        CommittedFilesHandler& getCommitedFilesHandler();
 
         void extractDataFromCommits();
 
@@ -33,12 +35,15 @@ class User
         unsigned int averageCommentLength;
         unsigned int averageChangesInCommits;
 
-        //Raw pointers are used as this is only a list of referances 
+        //Raw pointers are used as this is only a list of references 
         //to the actual commits stored in the log class.
         std::vector<Commit*> commits;
 
-        //Saves accregate information about when commits where made
+        //Saves aggregate information about when commits where made
         WorkTimeHandler workTimeHandler;
+
+        //Saves aggregate information about when commits where made
+        CommittedFilesHandler commitedFilesHandler;
 };
 
 #endif /* end of include guard: COMITTER_H */
