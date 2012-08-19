@@ -40,6 +40,36 @@ void TextView::formatTextUsers(shared_ptr<Log> log)
     }
 }
 
+void TextView::formatTextWorkTime(shared_ptr<Log> log)
+{
+    unsigned int counter = 0;
+    unsigned int usersSize = log->getUsersSize();
+
+    //The rows from the listview matches with a index in the vector, so it have to be empty before we start
+    formattedText.clear();
+
+    for(; counter < usersSize; counter++)
+    {
+        WorkTimeHandler& wth= log->getUser(counter).getWorkTimeHandler();
+
+        unsigned int wthCounter = 0;
+        unsigned int workTimeIntervals = wth.getWorkTimeIntervals();
+
+
+        //The string is formated using a stream so the string isen't truncated
+        stringstream formattedStream;
+
+        for(; wthCounter < workTimeIntervals; wthCounter++)
+        {
+            formattedStream << wth.getWorkTimeInterval(wthCounter) << endl << "Commits: " << wth.getWorkTimeIntervalCommits(wthCounter) << endl << ", Missing Comments: " << wth.getWorkTimeIntervalMissingComments(wthCounter) << endl << endl;
+        }
+
+        //The string needs to converted to a qstring before it can set, so it is saved as such 
+        QString formattedQString = QString::fromStdString(formattedStream.str());
+        formattedText.push_back(formattedQString);
+    }
+}
+
 /** Constructor **/
 TextView::TextView(QWidget *parent) : QTextEdit(parent)
 {

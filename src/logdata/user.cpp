@@ -51,6 +51,11 @@ unsigned int User::getAverageChangesInCommits()
     return averageChangesInCommits; 
 }
 
+WorkTimeHandler& User::getWorkTimeHandler()
+{
+    return workTimeHandler;
+}
+
 void User::extractDataFromCommits()
 {
     unsigned int commentLength = 0;        
@@ -63,6 +68,8 @@ void User::extractDataFromCommits()
 
         commentLength += commit->getCommentLength();
         changesInCommits += commit->getActionsSize();
+
+        workTimeHandler.addCommit(commit);
     }
 
     unsigned int commitsSize = commits.size();

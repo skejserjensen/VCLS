@@ -68,6 +68,7 @@ void MainWindow::selectAndOpenFile()
 
     //Formats and saves the text the three text boxes are going to display
     topUserTextView->formatTextUsers(logFileHandler->getLogData());
+    middleUserTextView->formatTextWorkTime(logFileHandler->getLogData());
 }
 
 void MainWindow::setActiveText()
@@ -76,6 +77,6 @@ void MainWindow::setActiveText()
 
     //The displayed text is formatted doing the construction process and only needs to be set
     topUserTextView->setActiveText(rowSelected);
-    //middleUserTextView->setActiveText(rowSelected);
+    middleUserTextView->setActiveText(rowSelected);
     //bottumUserTextView->setActiveText(rowSelected);
 }
