@@ -30,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
     middleUserTextView = new TextView(this);
     bottumUserTextView = new TextView(this);
 
-    //Set the differant properties of defualt widgets
+    //Set the different properties of default widgets
     openedFile->setReadOnly(true);
     
     //Attach signals to slots

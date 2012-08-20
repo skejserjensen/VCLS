@@ -17,7 +17,7 @@ class MainWindow : public QWidget
         ~MainWindow();
 
     private:
-        //Raw pointer is used for the internal implementation as it cant be acessed
+        //Raw pointer is used for the internal implementation as it cant be accessed
         LogFileHandler *logFileHandler;
 
         //The qt gui components
@@ -34,7 +34,6 @@ class MainWindow : public QWidget
         TextView *topUserTextView;
         TextView *middleUserTextView;
         TextView *bottumUserTextView;
-
 
     private slots:
         void selectAndOpenFile();
