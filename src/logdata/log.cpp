@@ -46,6 +46,16 @@ unsigned int Log::getAverageCommentLength()
     return averageCommentLength;
 }
 
+unsigned int Log::getAverageMissingComments()
+{
+    return averageMissingComments;
+}
+
+unsigned int Log::getAverageChangesInCommits()
+{
+    return averageChangesInCommits; 
+}
+
 Commit& Log::addCommit(string revision, string author, string time, string date, string comment)
 {
     commits.push_back(Commit(revision, author, time, date, comment));
@@ -68,15 +78,28 @@ Commit& Log::getCommit(unsigned int index)
 void Log::extractDataFromCommits()
 {
     unsigned int commentLength = 0;
+    unsigned int missingComments = 0;
+    unsigned int changesInCommits = 0;
 
     //Extraction of general data from the log file 
     for(Commit& commit : commits)
     {
+        if(commit.commentMissing())
+            missingComments++;
+
         assignCommitToUser(commit);
+
         commentLength += commit.getCommentLength();
+        changesInCommits += commit.getActionsSize();
     }
 
-    averageCommentLength = (commentLength / commits.size());
+    //Computes average based on the number of commits
+    unsigned int commitsSize = commits.size();
+    averageCommentLength = (commentLength / commitsSize);
+    averageChangesInCommits = (changesInCommits / commitsSize);
+
+    //Computes average based on the number of users
+    averageMissingComments = (missingComments / users.size()); 
 
     //Extraction of user specific data from the log file
     for(User& user : users)
@@ -86,6 +109,10 @@ void Log::extractDataFromCommits()
 /** Constructor **/
 Log::Log(string filename)
 {
+    averageCommentLength = 0;
+    averageMissingComments = 0;
+    averageChangesInCommits = 0;
+
     this->filename = filename;
 }
 

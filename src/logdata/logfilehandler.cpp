@@ -28,7 +28,7 @@ LogFileHandler::LogFileHandler(string logFilePath)
 {
     //The handler contains the path to the file, while the log only saves its name.
     this->logFilePath = logFilePath;
-    int posOfLastSlash = logFilePath.find_last_of('/');
+    int posOfLastSlash = logFilePath.find_last_of('/')+1;
     
     //The file part does only consist of a name, if the file is called from current directory.
     if(posOfLastSlash == -1)

@@ -28,6 +28,7 @@ class MainWindow : public QWidget
         FileDialog *fileDialog; 
 
         ListView *listView;
+        TextView *generalTextView;
 
         TextView *topUserTextView;
         TextView *middleUserTextView;

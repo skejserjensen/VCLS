@@ -17,6 +17,8 @@ class Log
         User& getUser(unsigned int index);
         unsigned int getCommitsSize();
         unsigned int getAverageCommentLength();
+        unsigned int getAverageMissingComments();
+        unsigned int getAverageChangesInCommits();
 
         Commit& addCommit(std::string revision, std::string author, std::string time, std::string date, std::string comment);
         Commit& getCommit(unsigned int index);
@@ -32,6 +34,8 @@ class Log
         std::vector <Commit> commits;
 
         unsigned int averageCommentLength;
+        unsigned int averageMissingComments;
+        unsigned int averageChangesInCommits;
 
         void assignCommitToUser(Commit& commit);
 };

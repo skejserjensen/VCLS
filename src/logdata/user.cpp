@@ -91,6 +91,7 @@ User::User(string name)
 {
     missingComments = 0;
     averageCommentLength = 0;
+    averageChangesInCommits = 0;
 
     this->name = name;
 }

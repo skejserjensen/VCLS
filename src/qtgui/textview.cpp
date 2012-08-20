@@ -18,6 +18,20 @@ void TextView::setActiveText(unsigned int index)
         setText(formattedText.at(index));
 }
 
+void TextView::formatTextGeneral(shared_ptr<Log> log)
+{
+    //The view needs to be empty if a new file is being loaded
+    formattedText.clear();
+
+    //The string is formated using a stream so the string isn't truncated
+    stringstream formattedStream;
+    formattedStream << "Filename: " << log->getFileName() << endl << "Commits: " << log->getCommitsSize() << endl << "Commiters: " << log->getUsersSize() << endl <<  "Average Comment Length: " << log->getAverageCommentLength() << endl << "Average Missing Comments: " << log->getAverageMissingComments() << endl << "Average Changes Per Commmit: " << log->getAverageChangesInCommits() << endl;
+
+    //The string needs to converted to a qstring before it can set, so it is saved as such 
+    QString formattedQString = QString::fromStdString(formattedStream.str());
+    formattedText.push_back(formattedQString);
+}
+
 void TextView::formatTextUsers(shared_ptr<Log> log)
 {
     unsigned int counter = 0;

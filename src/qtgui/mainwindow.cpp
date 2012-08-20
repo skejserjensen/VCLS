@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
     fileDialog = new FileDialog(this);
 
     listView = new ListView(this);  
+    generalTextView = new TextView(this);
 
     topUserTextView = new TextView(this);
     middleUserTextView = new TextView(this);
@@ -33,11 +34,12 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
     QObject::connect(openFile, SIGNAL(clicked()), SLOT(selectAndOpenFile()));
     QObject::connect(listView, SIGNAL(itemSelectionChanged()), SLOT(setActiveText()));
 
-    //Attah the elements to the layout and attach the layout to the mainwindow
-    windowLayout->addWidget(openedFile, 0, 0, 1, 1);
+    //Attach the elements to the layout and attach the layout to the mainwindow
+    windowLayout->addWidget(openedFile, 0, 0);
     windowLayout->addWidget(openFile, 0, 1);
 
-    windowLayout->addWidget(listView, 1, 0, -1, 1);
+    windowLayout->addWidget(listView, 1, 0, 2, 1);
+    windowLayout->addWidget(generalTextView, 3, 0);
 
     windowLayout->addWidget(topUserTextView, 1, 1);
     windowLayout->addWidget(middleUserTextView, 2, 1);
@@ -66,7 +68,11 @@ void MainWindow::selectAndOpenFile()
     listView->fillList(logFileHandler->getLogData());
     openedFile->setText(filePath);
 
-    //Formats and saves the text the three text boxes are going to display
+    //Formats and saves the text the general text box are going to display
+    generalTextView->formatTextGeneral(logFileHandler->getLogData());
+    generalTextView->setActiveText(0);
+
+    //Formats and saves the text the three user text boxes are going to display
     topUserTextView->formatTextUsers(logFileHandler->getLogData());
     middleUserTextView->formatTextWorkTime(logFileHandler->getLogData());
     bottumUserTextView->formatTextCommitedFiles(logFileHandler->getLogData());
