@@ -22,6 +22,7 @@ class MainWindow : public QWidget
 
         //The qt gui components
         QGridLayout *windowLayout;
+        QHBoxLayout *topHbox;
 
         QPushButton *openFile;
         QLineEdit *openedFile;

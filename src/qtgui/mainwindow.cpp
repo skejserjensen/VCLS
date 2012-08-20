@@ -11,11 +11,14 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
     //The logfilehandler is initialised to null, to ensure we only delete it once
     logFileHandler = nullptr;
 
-    //Creates the layout used by the mainwindow
+    //Creates the layout needed, parents are set by setlayout and addlayout
     windowLayout = new QGridLayout();
+    topHbox = new QHBoxLayout();
+
+    windowLayout->addLayout(topHbox, 0, 0, 1, 2);
     this->setLayout(windowLayout);
     
-    //Instansitaion of gui elements
+    //Instantiation of gui elements
     openFile = new QPushButton("Open File", this);
     openedFile = new QLineEdit(this);
     fileDialog = new FileDialog(this);
@@ -34,9 +37,9 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
     QObject::connect(openFile, SIGNAL(clicked()), SLOT(selectAndOpenFile()));
     QObject::connect(listView, SIGNAL(itemSelectionChanged()), SLOT(setActiveText()));
 
-    //Attach the elements to the layout and attach the layout to the mainwindow
-    windowLayout->addWidget(openedFile, 0, 0);
-    windowLayout->addWidget(openFile, 0, 1);
+    //Attach the elements to the layouts 
+    topHbox->addWidget(openedFile);
+    topHbox->addWidget(openFile);
 
     windowLayout->addWidget(listView, 1, 0, 2, 1);
     windowLayout->addWidget(generalTextView, 3, 0);
