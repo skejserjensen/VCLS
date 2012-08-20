@@ -40,10 +40,10 @@ void CommittedFilesHandler::extractDataFromCommits()
         mostCommitedFiles.insert(pair<unsigned int, string>(element.second, element.first));
     }
 
-    //The original map is cleared as there are no reasons to save the inforamtion it contained
+    //The original map is cleared as there are no reasons to save the information it contained
     fileCommitedCounter.clear();
 
-    //Only the first ten files are saved as less commited files mosten often are uninteresting
+    //Only the first ten files are saved as less committed files most often are uninteresting
     auto iterator = mostCommitedFiles.end();
     advance(iterator, -10);
 

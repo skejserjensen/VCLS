@@ -25,6 +25,7 @@ class LogFileHandler
         std::shared_ptr<Log> logData;
 
         bool readLogFile();
+        void readSvnNormal(std::string& file);
         void readSvnVerbose(std::string& file);
 };
 

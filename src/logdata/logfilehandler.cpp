@@ -36,7 +36,7 @@ LogFileHandler::LogFileHandler(string logFilePath)
     else
         this->logData = make_shared<Log>(logFilePath.substr(posOfLastSlash));
 
-    //All file managment is done by the handler as it is vcs specefic, while the log
+    //All file management is done by the handler as it is vcs specific, while the log
     //can do data extraction on its own, as the data is saved in the same format for all vcs.
     readLogFile();
 
@@ -71,7 +71,7 @@ bool LogFileHandler::readLogFile()
     //using libc++ is having problem compiling other parts of the code base.
     //TODO: Rewrite the method to use std::regex when gcc supports the features needed.
 
-    //Regex and method call for svn log file created with the --verbose flag flag
+    //Regex and method call for subversion log files created with the --verbose flag
     regex svnVerbose("-{72}\n(r\\d+.+?Changed\\spaths:\\n\\s{3}\\u.+?-{72}\\n)+");
     if(regex_match(fileBuffer, svnVerbose))
     {
@@ -79,8 +79,39 @@ bool LogFileHandler::readLogFile()
         return true;
     }
 
+    //Regex and method call of subversion log files crated without any flags
+    regex svnNormal("-{72}\n(r\\d+.+?-{72}\\n)+");
+    if(regex_match(fileBuffer, svnNormal))
+    {
+        readSvnNormal(fileBuffer);
+        return true;
+    }
+
     cerr << "ERROR: logfile was not recognized as a supported format" << endl;
     exit(-1);
+}
+
+void LogFileHandler::readSvnNormal(string& file)
+{
+    //Regex and iterators to extract Revision, Author, Date, Time, Actions and Comments from the various commits
+    regex commitsRegex(
+            "r(\\d+)\\s\\|\\s(.+?)\\s\\|\\s(\\d{4}-\\d{2}-\\d{2})\\s(\\d{2}:\\d{2}:\\d{2}).+?"
+            "^$"
+            "(.+?)\\n"
+            "-{72}\\n"
+            );
+
+    sregex_iterator cmItStart(file.begin(), file.end(), commitsRegex);
+    sregex_iterator cmItEnd;
+
+    for(; cmItStart != cmItEnd; ++cmItStart)
+    {
+        auto subMatchCommit = cmItStart->begin();
+   
+        //1: Revision, 2: Author, 3: Date, 4: Time, 5: Comment
+        Commit& activeCommit = logData->addCommit((subMatchCommit+1)->str(), (subMatchCommit+2)->str(), (subMatchCommit+4)->str(), (subMatchCommit+3)->str(), (subMatchCommit+5)->str());
+
+    }
 }
 
 void LogFileHandler::readSvnVerbose(string& file)
@@ -115,7 +146,7 @@ void LogFileHandler::readSvnVerbose(string& file)
         //1: Action Type, 2: Filepath
         for(; acItStart != acItEnd; ++acItStart)
         {
-            //The first string does allways only contain one char, which we save as such by extracting it
+            //The first string does always only contain one char, which we save as such by extracting it
             auto subMatchAction = acItStart->begin();
             activeCommit.addAction((subMatchAction+1)->str().at(0), (subMatchAction+2)->str());
         }

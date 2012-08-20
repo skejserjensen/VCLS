@@ -17,7 +17,6 @@ class ListView : public QListWidget
         ~ListView();
 
     private:
-        /* data */
 };
 
 #endif /* end of include guard: TREEVIEW_H */

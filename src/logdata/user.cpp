@@ -78,7 +78,7 @@ void User::extractDataFromCommits()
         commitedFilesHandler.addCommit(commit);
     }
 
-    //The handler needs to know when all commits have been aded and data can be extracted
+    //The handler needs to know when all commits have been added and data can be extracted
     commitedFilesHandler.extractDataFromCommits();
 
     unsigned int commitsSize = commits.size();

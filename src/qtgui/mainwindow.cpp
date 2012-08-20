@@ -62,18 +62,28 @@ void MainWindow::selectAndOpenFile()
     QString filePath;
     filePath = fileDialog->getOpenFileName();
 
+    //If the user presses cancel then the method return an empty string, which the handler can't find on the file system
+    if(filePath.size() == 0)
+        return;
+
+    //Ensures that the old data is deleted if a log file have already been opened.
     if(logFileHandler != nullptr)
         delete logFileHandler;
 
     logFileHandler = new LogFileHandler(filePath.toStdString());
 
-    //Fills the listwidget and sets the filepath to the textbox
+    //Fills the listwidget and sets the filepath to the text box
     listView->fillList(logFileHandler->getLogData());
     openedFile->setText(filePath);
 
     //Formats and saves the text the general text box are going to display
     generalTextView->formatTextGeneral(logFileHandler->getLogData());
     generalTextView->setActiveText(0);
+
+    //Clears the user specific text boxes so they are empty before a user is selected
+    topUserTextView->clear();
+    middleUserTextView->clear();
+    bottumUserTextView->clear();
 
     //Formats and saves the text the three user text boxes are going to display
     topUserTextView->formatTextUsers(logFileHandler->getLogData());
