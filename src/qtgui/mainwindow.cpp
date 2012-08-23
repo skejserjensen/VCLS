@@ -12,16 +12,24 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
     logFileHandler = nullptr;
 
     //Creates the layout needed, parents are set by setlayout and addlayout
-    windowLayout = new QGridLayout();
-    topHbox = new QHBoxLayout();
+    QGridLayout *windowLayout = new QGridLayout();
+    QHBoxLayout *topHbox = new QHBoxLayout();
 
-    windowLayout->addLayout(topHbox, 0, 0, 1, 2);
-    this->setLayout(windowLayout);
+    QGroupBox *generalGroupBox = new QGroupBox("General Log Statistics", this); 
+    QGroupBox *topUserGroupBox = new QGroupBox("General User Statistics", this); 
+    QGroupBox *middleUserGroupBox = new QGroupBox("User Worktime Statistics", this); 
+    QGroupBox *bottumUserGroupBox = new QGroupBox("User File Statistics", this); 
     
+    //Groupboxes dont have layouts themself so an hbox is used for each
+    QHBoxLayout *generalHbox = new QHBoxLayout();
+    QHBoxLayout *topUserHbox = new QHBoxLayout();
+    QHBoxLayout *middleUserHbox = new QHBoxLayout();
+    QHBoxLayout *bottumUserHbox = new QHBoxLayout();
+
     //Instantiation of gui elements
     openFile = new QPushButton("Open File", this);
     openedFile = new QLineEdit(this);
-    fileDialog = new FileDialog(this);
+    fileDialog = new QFileDialog(this);
 
     listView = new ListView(this);  
     generalTextView = new TextView(this);
@@ -37,16 +45,32 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
     QObject::connect(openFile, SIGNAL(clicked()), SLOT(selectAndOpenFile()));
     QObject::connect(listView, SIGNAL(itemSelectionChanged()), SLOT(setActiveText()));
 
-    //Attach the elements to the layouts 
+    //Adds layouts and widgets to the QGroupBoxses 
+    generalHbox->addWidget(generalTextView);
+    topUserHbox->addWidget(topUserTextView);
+    middleUserHbox->addWidget(middleUserTextView);
+    bottumUserHbox->addWidget(bottumUserTextView);
+
+    generalGroupBox->setLayout(generalHbox);
+    topUserGroupBox->setLayout(topUserHbox);
+    middleUserGroupBox->setLayout(middleUserHbox);
+    bottumUserGroupBox->setLayout(bottumUserHbox);
+
+    //Adds the groupboxses to the grid layout 
     topHbox->addWidget(openedFile);
     topHbox->addWidget(openFile);
 
     windowLayout->addWidget(listView, 1, 0, 2, 1);
-    windowLayout->addWidget(generalTextView, 3, 0);
+    windowLayout->addWidget(generalGroupBox, 3, 0);
 
-    windowLayout->addWidget(topUserTextView, 1, 1);
-    windowLayout->addWidget(middleUserTextView, 2, 1);
-    windowLayout->addWidget(bottumUserTextView, 3, 1);
+    windowLayout->addWidget(topUserGroupBox, 1, 1);
+    windowLayout->addWidget(middleUserGroupBox, 2, 1);
+    windowLayout->addWidget(bottumUserGroupBox, 3, 1);
+
+    //Adds the layout to the mainwindow
+    windowLayout->addLayout(topHbox, 0, 0, 1, 2);
+    this->setLayout(windowLayout);
+
 }
 
 /** Destructor **/

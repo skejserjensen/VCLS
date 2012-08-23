@@ -84,7 +84,11 @@ void TextView::formatTextWorkTime(shared_ptr<Log> log)
         //The loop is incremented by two as the out is written in two columns
         for(; wthCounter < workTimeIntervals; wthCounter += 2)
         {
-            formattedStream << wth.getWorkTimeInterval(wthCounter) << "\t\t" << wth.getWorkTimeInterval(wthCounter+1) << endl << "Commits: " << wth.getWorkTimeIntervalCommits(wthCounter) << "\t\t\t" << "Commits:" << wth.getWorkTimeIntervalCommits(wthCounter+1) << endl << "Missing Comments: " << wth.getWorkTimeIntervalMissingComments(wthCounter) << "\t\t" << "Missing Comments: " << wth.getWorkTimeIntervalMissingComments(wthCounter+1) << endl << endl;
+            formattedStream << wth.getWorkTimeInterval(wthCounter) << "\t\t" << wth.getWorkTimeInterval(wthCounter+1) << endl << "Commits: " << wth.getWorkTimeIntervalCommits(wthCounter) << "\t\t\t" << "Commits:" << wth.getWorkTimeIntervalCommits(wthCounter+1) << endl << "Missing Comments: " << wth.getWorkTimeIntervalMissingComments(wthCounter) << "\t\t" << "Missing Comments: " << wth.getWorkTimeIntervalMissingComments(wthCounter+1) << endl;
+
+            //Ensures that there wont be an endl of line in the bottum of the view 
+            if((wthCounter+2) < workTimeIntervals)
+                formattedStream << endl;
         }
 
         //The string needs to converted to a qstring before it can set, so it is saved as such 

@@ -3,7 +3,6 @@
 
 #include <QtGui>
 
-#include "filedialog.hpp"
 #include "listview.hpp"
 #include "textview.hpp"
 #include "../logdata/logfilehandler.hpp"
@@ -20,13 +19,10 @@ class MainWindow : public QWidget
         //Raw pointer is used for the internal implementation as it cant be accessed
         LogFileHandler *logFileHandler;
 
-        //The qt gui components
-        QGridLayout *windowLayout;
-        QHBoxLayout *topHbox;
-
+        //The qt gui components 
         QPushButton *openFile;
         QLineEdit *openedFile;
-        FileDialog *fileDialog; 
+        QFileDialog *fileDialog; 
 
         ListView *listView;
         TextView *generalTextView;

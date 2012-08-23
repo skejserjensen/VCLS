@@ -109,7 +109,7 @@ void LogFileHandler::readSvnNormal(string& file)
         auto subMatchCommit = cmItStart->begin();
    
         //1: Revision, 2: Author, 3: Date, 4: Time, 5: Comment
-        Commit& activeCommit = logData->addCommit((subMatchCommit+1)->str(), (subMatchCommit+2)->str(), (subMatchCommit+4)->str(), (subMatchCommit+3)->str(), (subMatchCommit+5)->str());
+        logData->addCommit((subMatchCommit+1)->str(), (subMatchCommit+2)->str(), (subMatchCommit+4)->str(), (subMatchCommit+3)->str(), (subMatchCommit+5)->str());
 
     }
 }
