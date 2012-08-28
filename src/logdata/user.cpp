@@ -31,8 +31,7 @@ Commit& User::getCommit(int index)
     }
     catch(...)
     {
-        cerr << "ERROR: access to commits is out of bounds" << endl;
-        exit(-1);
+        throw "ERROR: access to commits is out of bounds";
     }
 }
 

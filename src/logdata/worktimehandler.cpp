@@ -76,8 +76,7 @@ string& WorkTimeHandler::getWorkTimeInterval(unsigned index)
     }
     catch(...)
     {
-        cerr << "ERROR: acces to worktime interval is out of bounds" << endl;
-        exit(-1);
+        throw "ERROR: acces to worktime interval is out of bounds";
     }
 }
 
@@ -98,8 +97,7 @@ unsigned int WorkTimeHandler::getWorkTimeIntervalMissingComments(unsigned int in
         return workTimeData[index][1];
     else
     {
-        cerr << "ERROR: acces to worktime missing comments is out of bounds" << endl;
-        exit(-1);
+        throw "ERROR: acces to worktime missing comments is out of bounds";
     }
 }
 

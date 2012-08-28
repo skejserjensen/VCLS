@@ -57,8 +57,7 @@ bool LogFileHandler::readLogFile()
 
     if(!logfile)
     {
-        cerr << "ERROR: logfile could not be found" << endl;
-        exit(-1);
+        throw "ERROR: logfile could not be found";
     }
 
     //The file needs to be buffered before it can be used with boost::regex
@@ -87,8 +86,7 @@ bool LogFileHandler::readLogFile()
         return true;
     }
 
-    cerr << "ERROR: logfile was not recognized as a supported format" << endl;
-    exit(-1);
+    throw "ERROR: logfile was not recognized as a supported format";
 }
 
 void LogFileHandler::readSvnNormal(string& file)
@@ -124,7 +122,7 @@ void LogFileHandler::readSvnVerbose(string& file)
             "(.+?)\\n"
             "-{72}\\n"
             );
-
+    
     sregex_iterator cmItStart(file.begin(), file.end(), commitsRegex);
     sregex_iterator cmItEnd;
 

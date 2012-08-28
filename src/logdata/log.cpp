@@ -31,8 +31,7 @@ User& Log::getUser(unsigned int index)
     }
     catch(...)
     {
-        cerr << "ERROR: access to users was out of bounds" << endl;
-        exit(-1);
+        throw "ERROR: access to users was out of bounds";
     }
 }
 
@@ -70,8 +69,7 @@ Commit& Log::getCommit(unsigned int index)
     }
     catch(...)
     {
-        cerr << "ERROR: access to commits was out of bounds" << endl;
-        exit(-1);
+        throw "ERROR: access to commits was out of bounds";
     }
 }
 
