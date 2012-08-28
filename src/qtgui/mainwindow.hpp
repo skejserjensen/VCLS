@@ -7,6 +7,9 @@
 #include "textview.hpp"
 #include "../logdata/logfilehandler.hpp"
 
+//Determins if the exceptions caught from the handler are printed
+#define DEBUG 0
+
 class MainWindow : public QWidget
 {
     Q_OBJECT

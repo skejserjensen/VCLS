@@ -94,7 +94,18 @@ void MainWindow::selectAndOpenFile()
     if(logFileHandler != nullptr)
         delete logFileHandler;
 
-    logFileHandler = new LogFileHandler(filePath.toStdString());
+    //The logfilehandler might throw exceptions if it is unable to read the file our encounters a bug
+    try
+    {
+        logFileHandler = new LogFileHandler(filePath.toStdString());
+    }
+    catch(char const* exception)
+    {
+        if(DEBUG)
+            qDebug() << exception;
+
+        return;
+    }
 
     //Fills the listwidget and sets the filepath to the text box
     listView->fillList(logFileHandler->getLogData());
