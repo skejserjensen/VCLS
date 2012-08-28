@@ -5,9 +5,10 @@
 
 #include "listview.hpp"
 #include "textview.hpp"
+#include "errorpopup.hpp"
 #include "../logdata/logfilehandler.hpp"
 
-//Determins if the exceptions caught from the handler are printed
+//Determines if the exceptions caught from the handler are printed
 #define DEBUG 0
 
 class MainWindow : public QWidget

@@ -103,6 +103,10 @@ void MainWindow::selectAndOpenFile()
     {
         if(DEBUG)
             qDebug() << exception;
+        
+        //Creates a small popup with a message that the file format is unsupported    
+        ErrorPopup errorPopup;
+        errorPopup.exec(); 
 
         return;
     }

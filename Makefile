@@ -4,9 +4,9 @@ INCPATH = `pkg-config --cflags QtGui`
 LIBS= -lboost_regex -lQtGui -lQtCore 
 OBJECTS= main.o \
 		 action.o commit.o worktimehandler.o commitedfileshandler.o user.o log.o logfilehandler.o \
-		 mainwindow.o textview.o listview.o
+		 mainwindow.o textview.o listview.o errorpopup.o
 
-MOCS= mainwindow.moc.cpp textview.moc.cpp listview.moc.cpp
+MOCS= mainwindow.moc.cpp textview.moc.cpp listview.moc.cpp errorpopup.moc.cpp
 
 #Vpath defining foldes with source files
 VPATH+= src

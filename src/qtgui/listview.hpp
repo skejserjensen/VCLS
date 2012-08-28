@@ -1,8 +1,8 @@
 #ifndef LISTVIEW_H
 #define LISTVIEW_H
 
-#include <memory>
 #include <QtGui>
+#include <memory>
 
 #include "../logdata/logfilehandler.hpp"
 
