@@ -86,32 +86,26 @@ bool LogFileHandler::readLogFile()
         return true;
     }
 
+    //Regex and method call of git log files crated with the --name-status flag 
+    regex gitNameStatus("(commit\\s[[:alnum:]]{40}\nAuthor:\\s.+?\\nDate:\\s\\s\\s.+?\\n.+?\\n\\n\\u.+?)+");
+    if(regex_match(fileBuffer, gitNameStatus))
+    {
+        readGitNameStatus(fileBuffer);
+        return true;
+    }
+
+    //Regex and method call of git log files crated without any flags
+    regex gitNormal("(commit\\s[[:alnum:]]{40}\\nAuthor:\\s.+?\\nDate:\\s\\s\\s.+?\\n.+?)+");
+    if(regex_match(fileBuffer, gitNormal))
+    {
+        readGitNormal(fileBuffer);
+        return true;
+    }
+
     throw "ERROR: logfile was not recognized as a supported format";
 }
 
-void LogFileHandler::readSvnNormal(string& file)
-{
-    //Regex and iterators to extract Revision, Author, Date, Time, Actions and Comments from the various commits
-    regex commitsRegex(
-            "r(\\d+)\\s\\|\\s(.+?)\\s\\|\\s(\\d{4}-\\d{2}-\\d{2})\\s(\\d{2}:\\d{2}:\\d{2}).+?"
-            "^$"
-            "(.+?)\\n"
-            "-{72}\\n"
-            );
-
-    sregex_iterator cmItStart(file.begin(), file.end(), commitsRegex);
-    sregex_iterator cmItEnd;
-
-    for(; cmItStart != cmItEnd; ++cmItStart)
-    {
-        auto subMatchCommit = cmItStart->begin();
-   
-        //1: Revision, 2: Author, 3: Date, 4: Time, 5: Comment
-        logData->addCommit((subMatchCommit+1)->str(), (subMatchCommit+2)->str(), (subMatchCommit+4)->str(), (subMatchCommit+3)->str(), (subMatchCommit+5)->str());
-
-    }
-}
-
+//Methods for handling subversion log files ordered in the same way as in LogFileHandler::readLogFile()
 void LogFileHandler::readSvnVerbose(string& file)
 {
     //Regex and iterators to extract Revision, Author, Date, Time, Actions and Comments from the various commits
@@ -135,7 +129,13 @@ void LogFileHandler::readSvnVerbose(string& file)
         auto subMatchCommit = cmItStart->begin();
    
         //1: Revision, 2: Author, 3: Date, 4: Time, 5: Actions, 6: Comment
-        Commit& activeCommit = logData->addCommit((subMatchCommit+1)->str(), (subMatchCommit+2)->str(), (subMatchCommit+4)->str(), (subMatchCommit+3)->str(), (subMatchCommit+6)->str());
+        Commit& activeCommit = logData->addCommit(
+                (subMatchCommit+1)->str(),
+                (subMatchCommit+2)->str(),
+                (subMatchCommit+4)->str(),
+                (subMatchCommit+3)->str(),
+                (subMatchCommit+6)->str()
+                );
 
         string actions = (subMatchCommit+5)->str();
         sregex_iterator acItStart(actions.begin(), actions.end(), actionsRegex);
@@ -148,5 +148,94 @@ void LogFileHandler::readSvnVerbose(string& file)
             auto subMatchAction = acItStart->begin();
             activeCommit.addAction((subMatchAction+1)->str().at(0), (subMatchAction+2)->str());
         }
+    }
+}
+
+void LogFileHandler::readSvnNormal(string& file)
+{
+    //Regex and iterators to extract Revision, Author, Date, Time, Actions and Comments from the various commits
+    regex commitsRegex(
+            "r(\\d+)\\s\\|\\s(.+?)\\s\\|\\s(\\d{4}-\\d{2}-\\d{2})\\s(\\d{2}:\\d{2}:\\d{2}).+?"
+            "^$"
+            "(.+?)\\n"
+            "-{72}\\n"
+            );
+
+    sregex_iterator cmItStart(file.begin(), file.end(), commitsRegex);
+    sregex_iterator cmItEnd;
+
+    for(; cmItStart != cmItEnd; ++cmItStart)
+    {
+        auto subMatchCommit = cmItStart->begin();
+   
+        //1: Revision, 2: Author, 3: Date, 4: Time, 5: Comment
+        logData->addCommit(
+                (subMatchCommit+1)->str(),
+                (subMatchCommit+2)->str(),
+                (subMatchCommit+4)->str(),
+                (subMatchCommit+3)->str(),
+                (subMatchCommit+5)->str()
+                );
+    }
+}
+
+//Methods for handling git log files ordered in the same way as in LogFileHandler::readLogFile()
+void LogFileHandler::readGitNameStatus(std::string& file)
+{
+    /*
+    //Regex and iterators to extract Revision, Author, Date, Time and Comments from the various commits
+    regex commitsRegex(
+           "commit\\s([[:alnum:]]{40})\\n"
+           "Author:\\s(.+?)<.+?\\n"
+           "Date:\\s\\s\\s\\u\\l\\l\\s(.+?)(\\d\\d:\\d\\d:\\d\\d)\\s(\\d\\d\\d\\d).+?\\n"
+           ".+?([[:alnum:]].+?)\\n"
+           ); 
+
+    sregex_iterator cmItStart(file.begin(), file.end(), commitsRegex);
+    sregex_iterator cmItEnd;
+
+    for(; cmItStart != cmItEnd; ++cmItStart)
+    {
+        auto subMatchCommit = cmItStart->begin();
+
+        //1: Revision, 2: Author, 3: Date, 4: Time, 5: Year, 6: Comment
+        logData->addCommit(
+                (subMatchCommit+1)->str(), 
+                (subMatchCommit+2)->str(), 
+                (subMatchCommit+4)->str(), 
+                (subMatchCommit+3)->str() + (subMatchCommit+5)->str(), 
+                (subMatchCommit+6)->str()
+                );
+    }
+    */
+    std::cout << "DEVEL: Stub method cloosing." << std::endl;
+    std::exit(-1);
+}
+
+void LogFileHandler::readGitNormal(std::string& file)
+{
+    //Regex and iterators to extract Revision, Author, Date, Time and Comments from the various commits
+    regex commitsRegex(
+           "commit\\s([[:alnum:]]{40})\\n"
+           "Author:\\s(.+?)<.+?\\n"
+           "Date:\\s\\s\\s\\u\\l\\l\\s(.+?)(\\d\\d:\\d\\d:\\d\\d)\\s(\\d\\d\\d\\d).+?\\n"
+           ".+?([[:alnum:]].+?)\\n"
+           ); 
+
+    sregex_iterator cmItStart(file.begin(), file.end(), commitsRegex);
+    sregex_iterator cmItEnd;
+
+    for(; cmItStart != cmItEnd; ++cmItStart)
+    {
+        auto subMatchCommit = cmItStart->begin();
+
+        //1: Revision, 2: Author, 3: Date, 4: Time, 5: Year, 6: Comment
+        logData->addCommit(
+                (subMatchCommit+1)->str(), 
+                (subMatchCommit+2)->str(), 
+                (subMatchCommit+4)->str(), 
+                (subMatchCommit+3)->str() + (subMatchCommit+5)->str(), 
+                (subMatchCommit+6)->str()
+                );
     }
 }

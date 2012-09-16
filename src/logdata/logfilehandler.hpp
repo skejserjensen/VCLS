@@ -25,8 +25,10 @@ class LogFileHandler
         std::shared_ptr<Log> logData;
 
         bool readLogFile();
-        void readSvnNormal(std::string& file);
         void readSvnVerbose(std::string& file);
+        void readSvnNormal(std::string& file);
+        void readGitNameStatus(std::string& file);
+        void readGitNormal(std::string& file);
 };
 
 #endif /* end of include guard: LOGFILEHANDLER_H */
