@@ -120,7 +120,6 @@ void LogFileHandler::readSvnVerbose(string& file)
     sregex_iterator cmItStart(file.begin(), file.end(), commitsRegex);
     sregex_iterator cmItEnd;
 
-
     //Regex to extract Type and Filepath from the various actions contained in the commits
     regex actionsRegex(".*?(\\u)\\s(.+?)\\n");
 
@@ -182,34 +181,47 @@ void LogFileHandler::readSvnNormal(string& file)
 //Methods for handling git log files ordered in the same way as in LogFileHandler::readLogFile()
 void LogFileHandler::readGitNameStatus(std::string& file)
 {
-    /*
     //Regex and iterators to extract Revision, Author, Date, Time and Comments from the various commits
     regex commitsRegex(
            "commit\\s([[:alnum:]]{40})\\n"
            "Author:\\s(.+?)<.+?\\n"
            "Date:\\s\\s\\s\\u\\l\\l\\s(.+?)(\\d\\d:\\d\\d:\\d\\d)\\s(\\d\\d\\d\\d).+?\\n"
            ".+?([[:alnum:]].+?)\\n"
+           ".+?(\\u.+?[[:alnum:]]\\n)+"
            ); 
 
     sregex_iterator cmItStart(file.begin(), file.end(), commitsRegex);
     sregex_iterator cmItEnd;
 
+    //Regex to extract Type and Filepath from the various actions contained in the commits
+    regex actionsRegex(".*?(\\u)\\t(.+?)\\n");
+
     for(; cmItStart != cmItEnd; ++cmItStart)
     {
         auto subMatchCommit = cmItStart->begin();
 
-        //1: Revision, 2: Author, 3: Date, 4: Time, 5: Year, 6: Comment
-        logData->addCommit(
+        //1: Revision, 2: Author, 3: Date, 4: Time, 5: Year, 6: Comment, 7: Actions
+        Commit& activeCommit = logData->addCommit(
                 (subMatchCommit+1)->str(), 
                 (subMatchCommit+2)->str(), 
                 (subMatchCommit+4)->str(), 
                 (subMatchCommit+3)->str() + (subMatchCommit+5)->str(), 
                 (subMatchCommit+6)->str()
                 );
+    
+        string actions = (subMatchCommit+7)->str();
+        sregex_iterator acItStart(actions.begin(), actions.end(), actionsRegex);
+        sregex_iterator acItEnd;
+
+        //1: Action Type, 2: Filepath
+        for(; acItStart != acItEnd; ++acItStart)
+        {
+            //The first string does always only contain one char, which we save as such by extracting it
+            auto subMatchAction = acItStart->begin();
+            activeCommit.addAction((subMatchAction+1)->str().at(0), (subMatchAction+2)->str());
+        }
+
     }
-    */
-    std::cout << "DEVEL: Stub method cloosing." << std::endl;
-    std::exit(-1);
 }
 
 void LogFileHandler::readGitNormal(std::string& file)
