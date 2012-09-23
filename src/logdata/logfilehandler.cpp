@@ -87,10 +87,10 @@ bool LogFileHandler::readLogFile()
     }
 
     //Regex and method call of git log files crated with the --name-status flag 
-    regex gitNameStatus("(commit\\s[[:alnum:]]{40}\nAuthor:\\s.+?\\nDate:\\s\\s\\s.+?\\n.+?\\n\\n\\u.+?)+");
-    if(regex_match(fileBuffer, gitNameStatus))
+    regex gitWhatchanged("(commit\\s[[:alnum:]]{40}\nAuthor:\\s.+?\\nDate:\\s\\s\\s.+?\\n.+?\\n\\n\\:.+?)+");
+    if(regex_match(fileBuffer, gitWhatchanged))
     {
-        readGitNameStatus(fileBuffer);
+        readGitWhatchanged(fileBuffer);
         return true;
     }
 
@@ -179,7 +179,7 @@ void LogFileHandler::readSvnNormal(string& file)
 }
 
 //Methods for handling git log files ordered in the same way as in LogFileHandler::readLogFile()
-void LogFileHandler::readGitNameStatus(std::string& file)
+void LogFileHandler::readGitWhatchanged(std::string& file)
 {
     //Regex and iterators to extract Revision, Author, Date, Time and Comments from the various commits
     regex commitsRegex(
@@ -188,7 +188,9 @@ void LogFileHandler::readGitNameStatus(std::string& file)
            "Author:\\s(.+?)<.+?\\n"
            "Date:\\s\\s\\s\\u\\l\\l\\s(.+?)(\\d\\d:\\d\\d:\\d\\d)\\s(\\d\\d\\d\\d).+?\\n"
            ".+?([[:alnum:]].+?)\\n"
-           ".+?(\\u.+?[[:alnum:]]\\n)+"
+           "^$\\n"
+           "(.+?)"
+           "^$"
            ); 
 
     sregex_iterator cmItStart(file.begin(), file.end(), commitsRegex);
@@ -234,6 +236,7 @@ void LogFileHandler::readGitNormal(std::string& file)
            "Author:\\s(.+?)<.+?\\n"
            "Date:\\s\\s\\s\\u\\l\\l\\s(.+?)(\\d\\d:\\d\\d:\\d\\d)\\s(\\d\\d\\d\\d).+?\\n"
            ".+?([[:alnum:]].+?)\\n"
+           "^$"
            ); 
 
     sregex_iterator cmItStart(file.begin(), file.end(), commitsRegex);
@@ -242,7 +245,7 @@ void LogFileHandler::readGitNormal(std::string& file)
     for(; cmItStart != cmItEnd; ++cmItStart)
     {
         auto subMatchCommit = cmItStart->begin();
-        std::cout << "DEBUG: " << (subMatchCommit+6)->str() << std::endl;
+
         //1: Revision, 2: Author, 3: Date, 4: Time, 5: Year, 6: Comment
         logData->addCommit(
                 (subMatchCommit+1)->str(), 

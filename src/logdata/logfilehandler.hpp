@@ -27,7 +27,7 @@ class LogFileHandler
         bool readLogFile();
         void readSvnVerbose(std::string& file);
         void readSvnNormal(std::string& file);
-        void readGitNameStatus(std::string& file);
+        void readGitWhatchanged(std::string& file);
         void readGitNormal(std::string& file);
 };
 
