@@ -184,6 +184,7 @@ void LogFileHandler::readGitNameStatus(std::string& file)
     //Regex and iterators to extract Revision, Author, Date, Time and Comments from the various commits
     regex commitsRegex(
            "commit\\s([[:alnum:]]{40})\\n"
+           ".*?" //A git commit might contain a merge line which for the program at the moment is irrelevant
            "Author:\\s(.+?)<.+?\\n"
            "Date:\\s\\s\\s\\u\\l\\l\\s(.+?)(\\d\\d:\\d\\d:\\d\\d)\\s(\\d\\d\\d\\d).+?\\n"
            ".+?([[:alnum:]].+?)\\n"
@@ -229,6 +230,7 @@ void LogFileHandler::readGitNormal(std::string& file)
     //Regex and iterators to extract Revision, Author, Date, Time and Comments from the various commits
     regex commitsRegex(
            "commit\\s([[:alnum:]]{40})\\n"
+           ".*?" //A git commit might contain a merge line which for the program at the moment is irrelevant
            "Author:\\s(.+?)<.+?\\n"
            "Date:\\s\\s\\s\\u\\l\\l\\s(.+?)(\\d\\d:\\d\\d:\\d\\d)\\s(\\d\\d\\d\\d).+?\\n"
            ".+?([[:alnum:]].+?)\\n"
@@ -240,7 +242,7 @@ void LogFileHandler::readGitNormal(std::string& file)
     for(; cmItStart != cmItEnd; ++cmItStart)
     {
         auto subMatchCommit = cmItStart->begin();
-
+        std::cout << "DEBUG: " << (subMatchCommit+6)->str() << std::endl;
         //1: Revision, 2: Author, 3: Date, 4: Time, 5: Year, 6: Comment
         logData->addCommit(
                 (subMatchCommit+1)->str(), 
