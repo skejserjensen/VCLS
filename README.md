@@ -2,9 +2,9 @@
 VCLS or Version Control Log Statistics, is a small program to calculate various statistics based on log files from different version control systems.
 
 ##Version control logs supported
-**Subversion:** log files created both with and without the --verbose flag is currently supported.
+**Subversion:** log files created both with and without the --verbose flag is currently implemented.
 
-**Git:** log files without flags and logfiles with the --whatchanged flag is supported.
+**Git:** log files created by the log and whatchanged commands are currently implemented.
 
 ##Dependencies
 **Boost:** used for its regex  library at the moment as the C++11 version isn't implemented in GCC's library yet, it will be removed when it does.
