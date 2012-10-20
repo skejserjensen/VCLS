@@ -43,11 +43,14 @@ void CommittedFilesHandler::extractDataFromCommits()
     //The original map is cleared as there are no reasons to save the information it contained
     fileCommitedCounter.clear();
 
-    //Only the first ten files are saved as less committed files most often are uninteresting
-    auto iterator = mostCommitedFiles.end();
-    advance(iterator, -10);
+    //Only the first ten files are saved as it seems like a reasonable number and fits nicely with the ui
+    if(mostCommitedFiles.size() > 10)
+    {
+        auto iterator = mostCommitedFiles.end();
+        advance(iterator, -10);
 
-    mostCommitedFiles.erase(mostCommitedFiles.begin(), iterator); 
+        mostCommitedFiles.erase(mostCommitedFiles.begin(), iterator); 
+    }
 }
 
 unsigned int CommittedFilesHandler::getMostCommitedFilesSize()
