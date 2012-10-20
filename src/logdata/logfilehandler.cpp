@@ -87,7 +87,7 @@ bool LogFileHandler::readLogFile()
     }
 
     //Regex and method call of git log files crated with the --name-status flag 
-    regex gitWhatchanged("(commit\\s[[:alnum:]]{40}\nAuthor:\\s.+?\\nDate:\\s\\s\\s.+?\\n.+?\\n\\n\\:.+?)+");
+    regex gitWhatchanged("(commit\\s[[:alnum:]]{40}.+?\\:\\d{6}.+?)+");
     if(regex_match(fileBuffer, gitWhatchanged))
     {
         readGitWhatchanged(fileBuffer);
@@ -95,7 +95,7 @@ bool LogFileHandler::readLogFile()
     }
 
     //Regex and method call of git log files crated without any flags
-    regex gitNormal("(commit\\s[[:alnum:]]{40}\\nAuthor:\\s.+?\\nDate:\\s\\s\\s.+?\\n.+?)+");
+    regex gitNormal("(commit\\s[[:alnum:]]{40}.+?)+");
     if(regex_match(fileBuffer, gitNormal))
     {
         readGitNormal(fileBuffer);
