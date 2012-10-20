@@ -11,6 +11,9 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
     //The logfilehandler is initialised to null, to ensure we only delete it once
     logFileHandler = nullptr;
 
+    //Ensures that QStrings created by converting from C++ strings uses UTF-8
+    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
+
     //Creates the layout needed, parents are set by setlayout and addlayout
     QGridLayout *windowLayout = new QGridLayout();
     QHBoxLayout *topHbox = new QHBoxLayout();
