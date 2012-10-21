@@ -136,6 +136,7 @@ void TextView::formatTextCommitedFiles(shared_ptr<Log> log)
 /** Constructor **/
 TextView::TextView(QWidget *parent) : QTextEdit(parent)
 {
+    setLineWrapMode(QTextEdit::NoWrap);
     setReadOnly(true);
 }
 
