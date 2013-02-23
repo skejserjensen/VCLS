@@ -61,8 +61,7 @@ int Commit::getActionsSize()
 
 bool Commit::commentMissing()
 {
-    //A missing comment has length of one, as it always contains a newline
-    if(comment.length() == 1)
+    if(comment.length() == 0)
     {
         return true;
     }

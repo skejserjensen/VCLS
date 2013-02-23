@@ -126,14 +126,14 @@ void LogFileHandler::readSvnVerbose(string& file)
     for(; cmItStart != cmItEnd; ++cmItStart)
     {
         auto subMatchCommit = cmItStart->begin();
-   
+
         //1: Revision, 2: Author, 3: Date, 4: Time, 5: Actions, 6: Comment
         Commit& activeCommit = logData->addCommit(
                 (subMatchCommit+1)->str(),
                 (subMatchCommit+2)->str(),
                 (subMatchCommit+4)->str(),
                 (subMatchCommit+3)->str(),
-                (subMatchCommit+6)->str()
+                (subMatchCommit+6)->str().erase(0,1)
                 );
 
         string actions = (subMatchCommit+5)->str();
@@ -173,7 +173,7 @@ void LogFileHandler::readSvnNormal(string& file)
                 (subMatchCommit+2)->str(),
                 (subMatchCommit+4)->str(),
                 (subMatchCommit+3)->str(),
-                (subMatchCommit+5)->str()
+                (subMatchCommit+5)->str().erase(0,1)
                 );
     }
 }
