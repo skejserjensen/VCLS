@@ -71,7 +71,7 @@ bool LogFileHandler::readLogFile()
     //TODO: Rewrite the method to use std::regex when gcc supports the features needed.
 
     //Regex and method call for subversion log files created with the --verbose flag
-    regex svnVerbose("-{72}\n(r\\d+.+?Changed\\spaths:\\n\\s{3}\\u.+?-{72}\\n)+");
+    regex svnVerbose("-{72}\nr\\d+.+?Changed\\spaths:\\n\\s{3}\\u.+?-{72}\\n");
     if(regex_match(fileBuffer, svnVerbose))
     {
         readSvnVerbose(fileBuffer);
@@ -79,7 +79,7 @@ bool LogFileHandler::readLogFile()
     }
 
     //Regex and method call of subversion log files crated without any flags
-    regex svnNormal("-{72}\n(r\\d+.+?-{72}\\n)+");
+    regex svnNormal("-{72}\nr\\d+.+?-{72}\\n");
     if(regex_match(fileBuffer, svnNormal))
     {
         readSvnNormal(fileBuffer);
@@ -87,7 +87,7 @@ bool LogFileHandler::readLogFile()
     }
 
     //Regex and method call of git log files crated with the --name-status flag 
-    regex gitWhatchanged("(commit\\s[[:alnum:]]{40}.+?\\:\\d{6}.+?)+");
+    regex gitWhatchanged("commit\\s[[:alnum:]]{40}.+?\\:\\d{6}.+?");
     if(regex_match(fileBuffer, gitWhatchanged))
     {
         readGitWhatchanged(fileBuffer);
@@ -95,7 +95,7 @@ bool LogFileHandler::readLogFile()
     }
 
     //Regex and method call of git log files crated without any flags
-    regex gitNormal("(commit\\s[[:alnum:]]{40}.+?)+");
+    regex gitNormal("commit\\s[[:alnum:]]{40}.+?");
     if(regex_match(fileBuffer, gitNormal))
     {
         readGitNormal(fileBuffer);
@@ -108,6 +108,7 @@ bool LogFileHandler::readLogFile()
 //Methods for handling subversion log files ordered in the same way as in LogFileHandler::readLogFile()
 void LogFileHandler::readSvnVerbose(string& file)
 {
+
     //Regex and iterators to extract Revision, Author, Date, Time, Actions and Comments from the various commits
     regex commitsRegex(
             "r(\\d+)\\s\\|\\s(.+?)\\s\\|\\s(\\d{4}-\\d{2}-\\d{2})\\s(\\d{2}:\\d{2}:\\d{2}).+?"

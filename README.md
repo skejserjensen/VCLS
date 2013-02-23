@@ -12,10 +12,9 @@ VCLS or Version Control Log Statistics, is a small program to calculate various 
 **QT:** used for the Gui at the movement, versions using different toolkits or the command line might be implemented when i have some spare time to do it.
 
 ## TODO
-+ Add support for logs files from more version control systems.
++ Add support for logs files from more version control systems, mainly Mercurial and Bazaar.
 + Change the regexes so they use the standard C++11 implementation instead of boosts, when gcc supports it.
 + Write a version of the user interface in gtkmm or cli so users aren't forced to use qt on gtk based desktop.
-+ Rewrite the git regexses so they can handle long log files without causing stack overflows for the regex class.
 + Rewrite the svn regexses so they do not include the newline, without requiring the extra call to string.erase()
 
 ##License
