@@ -16,7 +16,6 @@ VCLS or Version Control Log Statistics, is a small program to calculate various 
 + Add a non hackish way to remove whitespace from the regex sub match when a commit is missing a message.
 + Change the regexes so they use the standard C++11 implementation instead of boosts, when gcc supports it.
 + Write a version of the user interface in gtkmm or cli so users aren't forced to use qt on gtk based desktop.
-+ Add filters based on the files mime type to the file dialog so it only allows the user to selected plain/text files with considering the extension.
 
 ##License
 The program is license under version 3 of the GPL, and a copy of the license is bundled with the program. 

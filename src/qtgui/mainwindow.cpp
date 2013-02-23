@@ -87,7 +87,7 @@ MainWindow::~MainWindow()
 void MainWindow::selectAndOpenFile()
 {
     QString filePath;
-    filePath = fileDialog->getOpenFileName();
+    filePath = fileDialog->getOpenFileName(this, "Open File", "", "All Files (*);;Text Files (*.txt)");
 
     //If the user presses cancel then the method return an empty string, which the handler can't find on the file system
     if(filePath.size() == 0)
