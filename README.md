@@ -1,4 +1,4 @@
-#Introduction
+#Version Control Log Statistics,
 VCLS or Version Control Log Statistics, is a small program to calculate various statistics based on log files from different version control systems.
 
 ##Version control logs supported
