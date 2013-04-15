@@ -1,5 +1,6 @@
 CXX= g++
-CPPFLAGS= -Wall -std=c++11 -O0 -g -c -o
+# Local typedef warnings are disabled as warning from included Qt4 headers clutters the output, and VCLS does not contain any typedefs
+CPPFLAGS= -Wall -Wno-unused-local-typedefs -std=c++11 -O0 -g -c -o 
 INCPATH = `pkg-config --cflags QtGui`
 LIBS= -lboost_regex -lQtGui -lQtCore 
 OBJECTS= main.o \
@@ -15,7 +16,7 @@ VPATH+= src
 all: vcls
 
 vcls: $(OBJECTS) $(MOCS)
-	$(CXX) $(OBJECTS) $(MOCS) $(INCPATH) $(LIBS) -std=c++11 -Wall -o $@
+	$(CXX) $(OBJECTS) $(MOCS) $(INCPATH) $(LIBS) -std=c++11 -Wno-unused-local-typedefs -Wall -o $@
 
 #Rules for individual parts of the program
 %.o: logdata/%.cpp logdata/%.hpp
@@ -33,7 +34,7 @@ vcls: $(OBJECTS) $(MOCS)
 
 #Rule for Qt's preprosser, which must run on QTOBJECT derived files
 %.moc.cpp: qtgui/%.hpp
-	moc $< -o $@
+	moc-qt4 $< -o $@
 
 #Rules for cleaning
 make clean:
