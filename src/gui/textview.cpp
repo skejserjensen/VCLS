@@ -28,7 +28,7 @@ void TextView::formatTextGeneral(shared_ptr<Log> log)
     formattedStream << "Filename: " << log->getFileName() << endl << "Commits: " << log->getCommitsSize() << endl << "Commiters: " << log->getUsersSize() << endl <<  "Average Comment Length: " << log->getAverageCommentLength() << endl << "Average Missing Comments: " << log->getAverageMissingComments() << endl;
        
     //The users most have done at average one change per commit, so zero means the data was unavailable
-    if(log->getAverageChangesInCommits())
+    if(log->getAverageChangesInCommits() != 0)
         formattedStream << "Average Number Of Changes: " << log->getAverageChangesInCommits() << endl;
 
     //The string needs to converted to a qstring before it can set, so it is saved as such 
@@ -81,7 +81,7 @@ void TextView::formatTextWorkTime(shared_ptr<Log> log)
         //The string is formated using a stream so the string isn't truncated
         stringstream formattedStream;
 
-        //The loop is incremented by two as the out is written in two columns
+        //The loop is incremented by two as the output is written in two columns
         for(; wthCounter < workTimeIntervals; wthCounter += 2)
         {
             formattedStream << wth.getWorkTimeInterval(wthCounter) << "\t\t" << wth.getWorkTimeInterval(wthCounter+1) << endl << "Commits: " << wth.getWorkTimeIntervalCommits(wthCounter) << "\t\t\t" << "Commits: " << wth.getWorkTimeIntervalCommits(wthCounter+1) << endl << "Missing Comments: " << wth.getWorkTimeIntervalMissingComments(wthCounter) << "\t\t" << "Missing Comments: " << wth.getWorkTimeIntervalMissingComments(wthCounter+1) << endl;

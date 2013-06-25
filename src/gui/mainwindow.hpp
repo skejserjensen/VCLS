@@ -8,7 +8,7 @@
 #include "errorpopup.hpp"
 #include "../logdata/logfilehandler.hpp"
 
-//Determines if the exceptions caught from the handler are printed
+//Determines if the exceptions caught from the logfilehandler are printed
 #define DEBUG 0
 
 class MainWindow : public QWidget

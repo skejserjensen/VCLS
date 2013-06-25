@@ -12,11 +12,22 @@ Note: using git wrappers such as git-tfs should allow the git log file to parsed
 ##Dependencies
 **Boost:** used for its regex library at the moment as the C++11 version isn't implemented in GCC's library yet.
 
-**QT:** used for the Gui at the movement, a version using the command line will be implemented when time allows it.
+**QT:** used for the Gui at the movement, the command line version can be compiled without it.
+
+## Installation
+1. Install dependencies.
+
+2. Compile the program, and run it from the executable.
+```
+//Cli version
+make cli
+
+//Gui version using Qt
+make
+```
 
 ## TODO
 + Change the regexes so they use the standard C++11 implementation instead of boosts, when gcc supports it.
-+ Write a command line interface so the Qt toolkit aren't nessesary for the program to function.
 
 ##License
 The program is licensed under version 3 of the GPL, and a copy of the license is bundled with the program. 

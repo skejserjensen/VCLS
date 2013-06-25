@@ -1,11 +1,11 @@
 CXX= g++
 # Local typedef warnings are disabled as warning from included Qt4 headers clutters the output, and VCLS does not contain any typedefs
-CPPFLAGS= -Wall -Wno-unused-local-typedefs -std=c++11 -O0 -g -c -o 
+CPPFLAGS= -Wall -Wno-unused-local-typedefs -std=c++11 -O2 -g -c -o 
 INCPATH = `pkg-config --cflags QtGui`
 LIBS= -lboost_regex -lQtGui -lQtCore 
-OBJECTS= main.o \
-		 action.o commit.o worktimehandler.o commitedfileshandler.o user.o log.o logfilehandler.o \
-		 mainwindow.o textview.o listview.o errorpopup.o
+OBJECTS= action.o commit.o worktimehandler.o commitedfileshandler.o user.o log.o logfilehandler.o
+GUIOBJECTS= mainwindow.o textview.o listview.o errorpopup.o
+CLIOBJECTS= maininterface.o
 
 MOCS= mainwindow.moc.cpp textview.moc.cpp listview.moc.cpp errorpopup.moc.cpp
 
@@ -13,10 +13,14 @@ MOCS= mainwindow.moc.cpp textview.moc.cpp listview.moc.cpp errorpopup.moc.cpp
 VPATH+= src
 
 #Main build rule
-all: vcls
+all: gui 
 
-vcls: $(OBJECTS) $(MOCS)
-	$(CXX) $(OBJECTS) $(MOCS) $(INCPATH) $(LIBS) -std=c++11 -Wno-unused-local-typedefs -Wall -o $@
+#Rules for gui and cli	
+gui: $(OBJECTS) $(GUIOBJECTS) $(MOCS)
+	$(CXX) $(INCPATH) $(OBJECTS) $(GUIOBJECTS) $(MOCS) $(LIBS) src/main.cpp -DGUI -std=c++11 -Wno-unused-local-typedefs -Wall -o vcls
+
+cli: $(CLIOBJECTS) $(OBJECTS)
+	$(CXX) $(OBJECTS) $(CLIOBJECTS) src/main.cpp -std=c++11 -lboost_regex -Wno-unused-local-typedefs -Wall -o vcls
 
 #Rules for individual parts of the program
 %.o: logdata/%.cpp logdata/%.hpp
@@ -25,12 +29,11 @@ vcls: $(OBJECTS) $(MOCS)
 %.o: gui/%.cpp gui/%.hpp
 	$(CXX) $< $(INCPATH) $(CPPFLAGS) $@
 
-%.o: %.cpp %.hpp
+%.o: cli/%.cpp cli/%.hpp
 	$(CXX) $< $(CPPFLAGS) $@
 
-#Rule to handle the files that does not have a header
-%.o: %.cpp
-	$(CXX) $? $(INCPATH) $(CPPFLAGS) $@
+%.o: %.cpp %.hpp
+	$(CXX) $< $(CPPFLAGS) $@
 
 #Rule for Qt's preprosser, which must run on QTOBJECT derived files
 %.moc.cpp: gui/%.hpp
@@ -38,6 +41,6 @@ vcls: $(OBJECTS) $(MOCS)
 
 #Rules for cleaning
 make clean:
-	rm *.o
-	rm *.moc.cpp
-	rm vcls 
+	rm -rf *.o
+	rm -rf *.moc.cpp
+	rm -rf vcls 
