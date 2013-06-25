@@ -22,7 +22,7 @@ vcls: $(OBJECTS) $(MOCS)
 %.o: logdata/%.cpp logdata/%.hpp
 	$(CXX) $< $(CPPFLAGS) $@
 
-%.o: qtgui/%.cpp qtgui/%.hpp
+%.o: gui/%.cpp gui/%.hpp
 	$(CXX) $< $(INCPATH) $(CPPFLAGS) $@
 
 %.o: %.cpp %.hpp
@@ -33,7 +33,7 @@ vcls: $(OBJECTS) $(MOCS)
 	$(CXX) $? $(INCPATH) $(CPPFLAGS) $@
 
 #Rule for Qt's preprosser, which must run on QTOBJECT derived files
-%.moc.cpp: qtgui/%.hpp
+%.moc.cpp: gui/%.hpp
 	moc-qt4 $< -o $@
 
 #Rules for cleaning
