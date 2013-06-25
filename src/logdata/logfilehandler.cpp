@@ -129,7 +129,7 @@ void LogFileHandler::readSvnVerbose(string& file)
     regex commitsRegex(
             "r(\\d+)\\s\\|\\s(.+?)\\s\\|\\s(\\d{4}-\\d{2}-\\d{2})\\s(\\d{2}:\\d{2}:\\d{2}).+?"
             "(\\u\\s.+?)"
-            "^$"
+            "^$\\n"
             "(.+?)\\n"
             "-{72}\\n"
             );
@@ -150,7 +150,7 @@ void LogFileHandler::readSvnVerbose(string& file)
                 (subMatchCommit+2)->str(),
                 (subMatchCommit+4)->str(),
                 (subMatchCommit+3)->str(),
-                (subMatchCommit+6)->str().erase(0,1)
+                (subMatchCommit+6)->str()
                 );
 
         string actions = (subMatchCommit+5)->str();
@@ -172,7 +172,7 @@ void LogFileHandler::readSvnNormal(string& file)
     //Regex and iterators to extract Revision, Author, Date, Time, Actions and Comments from the various commits
     regex commitsRegex(
             "r(\\d+)\\s\\|\\s(.+?)\\s\\|\\s(\\d{4}-\\d{2}-\\d{2})\\s(\\d{2}:\\d{2}:\\d{2}).+?"
-            "^$"
+            "^$\\n"
             "(.+?)\\n"
             "-{72}\\n"
             );
@@ -190,7 +190,7 @@ void LogFileHandler::readSvnNormal(string& file)
                 (subMatchCommit+2)->str(),
                 (subMatchCommit+4)->str(),
                 (subMatchCommit+3)->str(),
-                (subMatchCommit+5)->str().erase(0,1)
+                (subMatchCommit+5)->str()
                 );
     }
 }

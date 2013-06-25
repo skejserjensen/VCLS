@@ -10,14 +10,13 @@ Version Control Log Statistics, is a small program to calculate various statisti
 
 Note: using git wrappers such as git-tfs should allow the git log file to parsed, but this has only been tested very briefly.
 ##Dependencies
-**Boost:** used for its regex library at the moment as the C++11 version isn't implemented in GCC's library yet, it will be removed when it does.
+**Boost:** used for its regex library at the moment as the C++11 version isn't implemented in GCC's library yet.
 
-**QT:** used for the Gui at the movement, a version using the command line will be implemented when i have some spare time to do it.
+**QT:** used for the Gui at the movement, a version using the command line will be implemented when time allows it.
 
 ## TODO
 + Change the regexes so they use the standard C++11 implementation instead of boosts, when gcc supports it.
 + Write a command line interface so the Qt toolkit aren't nessesary for the program to function.
-+ Rewrite the svn regexses so they do not include the newline, without requiring the extra call to string.erase()
 
 ##License
 The program is licensed under version 3 of the GPL, and a copy of the license is bundled with the program. 
