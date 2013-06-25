@@ -1,5 +1,5 @@
 #Version Control Log Statistics
-Version Control Log Statistics, is a small program to calculate various statistics based on log files from different version control systems.
+Version Control Log Statistics, is a small program to calculate various statistics based on log files from different popular version control systems.
 
 ##Version control logs supported
 **Subversion:** log files created both with and without the --verbose flag is currently implemented.
@@ -17,14 +17,7 @@ Note: using git wrappers such as git-tfs should allow the git log file to parsed
 ## Installation
 1. Install dependencies.
 
-2. Compile the program, and run it from the executable.
-```
-//Cli version
-make cli
-
-//Gui version using Qt
-make
-```
+2. Compile the program with "make" for a Qt gui or "make cli" for a cli.
 
 ## TODO
 + Change the regexes so they use the standard C++11 implementation instead of boosts, when gcc supports it.
