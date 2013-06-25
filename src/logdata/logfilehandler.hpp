@@ -29,6 +29,8 @@ class LogFileHandler
         void readSvnNormal(std::string& file);
         void readGitWhatchanged(std::string& file);
         void readGitNormal(std::string& file);
+        void readMercurialStat(std::string& file);
+        void readMercurialNormal(std::string& file);
 };
 
 #endif /* end of include guard: LOGFILEHANDLER_H */
