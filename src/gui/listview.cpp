@@ -24,9 +24,3 @@ void ListView::fillList(shared_ptr<Log> log)
 ListView::ListView(QWidget *parent) : QListWidget(parent)
 {
 }
-
-/** Destructor **/
-ListView::~ListView()
-{
-}
-

@@ -7,8 +7,3 @@ ErrorPopup::ErrorPopup(QWidget *parent) : QMessageBox(parent)
     setWindowTitle("Unsupported log type");
     setText("The file opened is not a supported log file, please select a file containing a log from a supported version control system.");
 }
-
-/** Destructor **/
-ErrorPopup::~ErrorPopup()
-{
-}

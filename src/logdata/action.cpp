@@ -20,8 +20,3 @@ Action::Action(char actionType, string filePath)
     this->actionType = actionType;
     this->filePath = filePath;
 }
-
-/** Destructor **/
-Action::~Action()
-{
-}

@@ -27,7 +27,6 @@ class User
         void extractDataFromCommits();
 
         User(std::string name);
-        ~User(); 
 
     private:
         std::string name;
@@ -45,5 +44,4 @@ class User
         //Saves aggregate information about when commits where made
         CommittedFilesHandler commitedFilesHandler;
 };
-
 #endif /* end of include guard: COMITTER_H */

@@ -44,11 +44,6 @@ LogFileHandler::LogFileHandler(string logFilePath)
     logData->extractDataFromCommits();
 }
 
-/** Destructor **/
-LogFileHandler::~LogFileHandler()
-{
-}
-
 /** Private methods **/
 bool LogFileHandler::readLogFile()
 {

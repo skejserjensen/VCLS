@@ -7,7 +7,6 @@ using std::multimap;
 using std::pair;
 using std::advance;
 
-
 /** Public methods **/
 void CommittedFilesHandler::addCommit(Commit* commit)
 {
@@ -72,14 +71,4 @@ unsigned int CommittedFilesHandler::getMostCommitedFileCommits(unsigned int inde
     advance(iterator, index);
 
     return iterator->first;
-}
-
-/** Constructor **/
-CommittedFilesHandler::CommittedFilesHandler()
-{
-}
-
-/** Destructor **/
-CommittedFilesHandler::~CommittedFilesHandler()
-{
 }

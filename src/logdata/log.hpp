@@ -26,7 +26,6 @@ class Log
         void extractDataFromCommits();
 
         Log(std::string filename);
-        ~Log();
 
     private:
         std::string filename;
@@ -39,5 +38,4 @@ class Log
 
         void assignCommitToUser(Commit& commit);
 };
-
 #endif /* end of include guard: LOG_H */

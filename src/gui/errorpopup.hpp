@@ -9,10 +9,5 @@ class ErrorPopup : public QMessageBox
 
     public:
         ErrorPopup(QWidget *parent = nullptr);
-        ~ErrorPopup();
-
-    private:
-
 };
-
 #endif /* end of include guard: ERRORPOPUP_H */

@@ -114,11 +114,6 @@ Log::Log(string filename)
     this->filename = filename;
 }
 
-/** Destructor **/
-Log::~Log()
-{
-}
-
 /** Private methods **/
 void Log::assignCommitToUser(Commit& commit)
 {

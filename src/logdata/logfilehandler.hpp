@@ -18,7 +18,6 @@ class LogFileHandler
         std::shared_ptr<Log> getLogData();
 
         LogFileHandler(std::string logFilePath);
-        ~LogFileHandler();
 
     private:
         std::string logFilePath;
@@ -32,5 +31,4 @@ class LogFileHandler
         void readMercurialStat(std::string& file);
         void readMercurialNormal(std::string& file);
 };
-
 #endif /* end of include guard: LOGFILEHANDLER_H */

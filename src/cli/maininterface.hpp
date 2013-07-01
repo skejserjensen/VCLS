@@ -14,6 +14,7 @@ class MainInterface
 {
     public:
         void printResult();
+
         MainInterface(std::string logFilePath);
         ~MainInterface();
 
@@ -21,5 +22,4 @@ class MainInterface
         //Raw pointer is used for the internal implementation as it cant be accessed
         LogFileHandler *logFileHandler;
 };
-
 #endif /* end of include guard: MAININTERFACE_H */

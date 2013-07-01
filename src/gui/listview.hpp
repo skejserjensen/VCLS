@@ -14,9 +14,5 @@ class ListView : public QListWidget
         void fillList(std::shared_ptr<Log> log);
 
         ListView(QWidget *parent);
-        ~ListView();
-
-    private:
 };
-
 #endif /* end of include guard: TREEVIEW_H */

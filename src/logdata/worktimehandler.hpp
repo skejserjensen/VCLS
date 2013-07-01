@@ -18,7 +18,6 @@ class WorkTimeHandler
         unsigned int getWorkTimeIntervalMissingComments(unsigned int index);
 
         WorkTimeHandler();
-        ~WorkTimeHandler();
 
     private:
         //The intervals corresponding to the computed data is saved for printing;
@@ -28,5 +27,4 @@ class WorkTimeHandler
         const unsigned static int intervals = 8;
         unsigned int workTimeData[intervals][2];
 };
-
 #endif /* end of include guard: WORKTIMEHANDLER_H */

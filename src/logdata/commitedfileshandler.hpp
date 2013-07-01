@@ -15,9 +15,6 @@ class CommittedFilesHandler
         std::string& getMostCommitedFileName(unsigned int index);
         unsigned int getMostCommitedFileCommits(unsigned int index);
 
-        CommittedFilesHandler();
-        ~CommittedFilesHandler();
-
     private:
         //A multimap is used as multiple files can be committed the same number of times
         std::multimap<unsigned int, std::string> mostCommitedFiles;
@@ -27,5 +24,4 @@ class CommittedFilesHandler
         std::map<std::string, unsigned int> fileCommitedCounter;
 
 };
-
 #endif /* end of include guard: COMMITEDFILESHANDLER_H */

@@ -39,5 +39,4 @@ class MainWindow : public QWidget
         void selectAndOpenFile();
         void setActiveText();
 };
-
 #endif /* end of include guard: MAINWINDOW_H */

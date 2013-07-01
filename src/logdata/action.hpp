@@ -11,12 +11,9 @@ class Action
         std::string& getFilePath();
 
         Action(char actionType, std::string filePath);
-        ~Action();
         
     private:
         char actionType;
         std::string filePath;
 };
-
 #endif /* end of include guard: ACTION_H */
-

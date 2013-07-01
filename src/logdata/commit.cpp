@@ -78,8 +78,3 @@ Commit::Commit(string revision, string author, string time, string date, string 
     this->date = date;
     this->comment = comment;
 }
-
-/** Destructor **/
-Commit::~Commit()
-{
-}

@@ -134,8 +134,3 @@ WorkTimeHandler::WorkTimeHandler()
         workTimeIntervals.push_back(intervalStream.str());
     }
 }
-
-/** Destructor **/
-WorkTimeHandler::~WorkTimeHandler()
-{
-}

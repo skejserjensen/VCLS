@@ -139,8 +139,3 @@ TextView::TextView(QWidget *parent) : QTextEdit(parent)
     setLineWrapMode(QTextEdit::NoWrap);
     setReadOnly(true);
 }
-
-/** Destructor **/
-TextView::~TextView()
-{
-}

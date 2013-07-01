@@ -24,7 +24,6 @@ class Commit
         bool commentMissing();
 
         Commit(std::string revision, std::string author, std::string time, std::string date, std::string comment);
-        ~Commit();
 
     private:
         std::string revision;
@@ -34,5 +33,4 @@ class Commit
         std::string comment;
         std::vector<Action> actions;
 };
-
 #endif /* end of include guard: COMMIT_H */

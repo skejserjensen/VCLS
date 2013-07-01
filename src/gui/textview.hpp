@@ -20,11 +20,8 @@ class TextView : public QTextEdit
         void formatTextCommitedFiles(std::shared_ptr<Log> log);
 
         TextView(QWidget *parent);
-        ~TextView();
 
     private:
         std::vector<QString> formattedText;        
 };
-
-
 #endif /* end of include guard: TEXTVIEW_H */

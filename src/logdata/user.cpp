@@ -94,8 +94,3 @@ User::User(string name)
 
     this->name = name;
 }
-
-/** Destructor **/
-User::~User()
-{
-}
