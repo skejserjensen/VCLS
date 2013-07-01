@@ -3,16 +3,11 @@
 /** Using namespaces **/
 using std::string;
 
-/** Public methods **/
-
 /** Constructor **/
 MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
 {
     //The logfilehandler is initialised to null, to ensure we only delete it once
     logFileHandler = nullptr;
-
-    //Ensures that QStrings created by converting from C++ strings uses UTF-8
-    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
 
     //Creates the layout needed, parents are set by setlayout and addlayout
     QGridLayout *windowLayout = new QGridLayout();
@@ -73,7 +68,6 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
     //Adds the layout to the mainwindow
     windowLayout->addLayout(topHbox, 0, 0, 1, 2);
     this->setLayout(windowLayout);
-
 }
 
 /** Destructor **/

@@ -1,7 +1,13 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QtGui>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QGroupBox>
+#include <QFileDialog>
+#include <QPushButton>
+#include <QLineEdit>
+#include <QDebug>
 
 #include "listview.hpp"
 #include "textview.hpp"

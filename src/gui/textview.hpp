@@ -1,9 +1,9 @@
 #ifndef TEXTVIEW_H
 #define TEXTVIEW_H
 
+#include <QTextEdit>
 #include <iostream>
 #include <sstream>
-#include <QtGui>
 
 #include "../logdata/logfilehandler.hpp"
 

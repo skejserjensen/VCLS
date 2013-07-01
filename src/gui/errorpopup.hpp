@@ -1,7 +1,7 @@
 #ifndef ERRORPOPUP_H
 #define ERRORPOPUP_H
 
-#include <QtGui>
+#include <QMessageBox>
 
 class ErrorPopup : public QMessageBox  
 {
