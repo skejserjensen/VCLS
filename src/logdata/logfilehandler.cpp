@@ -61,8 +61,8 @@ bool LogFileHandler::readLogFile()
     string fileBuffer = fileBufferStream.str();
     logfile.close();
 
-    //Using boost::regex as gcc don't have support for std::regex yet.
-    //TODO: Rewrite the method to use std::regex when gcc supports the features needed.
+    //Using boost::regex as libstdc++ don't have complete support for std::regex yet.
+    //TODO: Rewrite the method to use std::regex when libstdc++ supports the features needed.
 
     //Regex and method call for subversion log files created with the --verbose flag
     regex svnVerbose("-{72}\nr\\d+.+?Changed\\spaths:\\n\\s{3}\\u.+?-{72}\\n");

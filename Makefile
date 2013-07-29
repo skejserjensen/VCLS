@@ -1,6 +1,5 @@
 CXX= g++
-# Local typedef warnings are disabled as warning from included Qt4 headers clutters the output, and VCLS does not contain any typedefs
-CPPFLAGS= -Wall -Wno-unused-local-typedefs -fPIE -std=c++11 -O2 -g -c -o 
+CPPFLAGS= -Wall -fPIE -std=c++11 -O2 -c -o 
 INCPATH = `pkg-config --cflags Qt5Widgets`
 LIBS= -lboost_regex -lQt5Core -lQt5Widgets
 OBJECTS= action.o commit.o worktimehandler.o commitedfileshandler.o user.o log.o logfilehandler.o
@@ -17,10 +16,10 @@ all: gui
 
 #Rules for gui and cli	
 gui: $(OBJECTS) $(GUIOBJECTS) $(MOCS)
-	$(CXX) $(INCPATH) $(OBJECTS) $(GUIOBJECTS) $(MOCS) $(LIBS) src/main.cpp -DGUI -fPIE -std=c++11 -Wno-unused-local-typedefs -Wall -o vcls
+	$(CXX) $(INCPATH) $(OBJECTS) $(GUIOBJECTS) $(MOCS) $(LIBS) src/main.cpp -DGUI -fPIE -std=c++11 -Wall -o vcls
 
 cli: $(CLIOBJECTS) $(OBJECTS)
-	$(CXX) $(OBJECTS) $(CLIOBJECTS) src/main.cpp -fPIE -std=c++11 -lboost_regex -Wno-unused-local-typedefs -Wall -o vcls
+	$(CXX) $(OBJECTS) $(CLIOBJECTS) src/main.cpp -std=c++11 -lboost_regex -Wall -o vcls
 
 #Rules for individual parts of the program
 %.o: logdata/%.cpp logdata/%.hpp
