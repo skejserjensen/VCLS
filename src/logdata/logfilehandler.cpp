@@ -125,7 +125,7 @@ void LogFileHandler::readSvnVerbose(string& file)
             "r(\\d+)\\s\\|\\s(.+?)\\s\\|\\s(\\d{4}-\\d{2}-\\d{2})\\s(\\d{2}:\\d{2}:\\d{2}).+?"
             "(\\u\\s.+?)"
             "^$\\n"
-            "(.+?)\\n"
+            "(.*?)\\n"
             "-{72}\\n"
             );
 
@@ -168,7 +168,7 @@ void LogFileHandler::readSvnNormal(string& file)
     regex commitsRegex(
             "r(\\d+)\\s\\|\\s(.+?)\\s\\|\\s(\\d{4}-\\d{2}-\\d{2})\\s(\\d{2}:\\d{2}:\\d{2}).+?"
             "^$\\n"
-            "(.+?)\\n"
+            "(.*?)\\n"
             "-{72}\\n"
             );
 
